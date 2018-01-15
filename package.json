@@ -1,0 +1,26 @@
+{
+  "name": "magicui",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "1.0.17",
+    "redux-thunk": "*",
+    "redux-actions": "*",
+    "immutable": "*",
+    "reselect": "*",
+    "react-utils": "*"
+  },
+  "dependencies": {
+    "react": "^16.1.1",
+    "redux": "^3.6.0",
+    "react-dom": "^16.1.1",
+    "react-router": "^3.0.0",
+    "react-redux": "^4.4.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
