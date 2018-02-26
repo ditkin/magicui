@@ -1,22 +1,25 @@
 import React from 'react';
-
 import { render } from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
+import { compose, createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux'
-
-import reducer from './reducers'
-
+import reducer from './redux/reducers/root'
+import GameContainer from './components/GameContainer'
 import './styles/index.css';
+import './styles/field.css';
 
-//import registerServiceWorker from './registerServiceWorker';
-//import thunk from 'redux-thunk'
-
-const store = createStore(reducer)
+const store = createStore(
+	reducer,
+	compose(
+		applyMiddleware(thunk),
+		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	)
+)
 
 render((
-    <Provider store={store}>
-        <App />
-    </Provider>
-    ),
-    document.getElementById('root')
+  <Provider store={store}>
+  	<GameContainer />
+  </Provider>
+),
+  document.getElementById('root')
 )

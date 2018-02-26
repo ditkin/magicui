@@ -1,0 +1,23 @@
+.field {
+	max-width: 800px;
+	border: 1px solid green;
+	border-radius: 2px;
+	display: flex;
+	flex-flow: row wrap;
+	margin: 5px;
+}
+
+.card {
+	height: 60px;
+	width: 35px;
+	margin: 5px;
+	text-align: center;
+	border: 2px solid gray;
+	border-radius: 3px;
+	font-size: 8px;
+	overflow: scroll;
+}
+
+.card.upsideDown {
+	transform: rotate(180deg);
+}
