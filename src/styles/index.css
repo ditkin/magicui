@@ -3,3 +3,50 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.field {
+	max-width: 800px;
+	border: 1px solid green;
+	border-radius: 2px;
+	display: flex;
+	flex-flow: row wrap;
+	margin: 5px;
+}
+
+.zone {
+	border: 1px solid gray;
+	border-radius: 3px;
+}
+
+.card {
+	height: 60px;
+	width: 35px;
+	margin: 10px;
+	text-align: center;
+	border: 2px solid gray;
+	border-radius: 3px;
+	font-size: 8px;
+	overflow: scroll;
+}
+
+.card.upsideDown {
+	transform: rotate(180deg);
+}
+
+.card.sideways {
+	transform: rotate(90deg);
+}
+
+.card.faceDown {
+	background: brown;
+}
+
+.grave {
+	border: 1px solid red;
+	border-radius: 2px;
+	margin: 5px;
+}
+
+.grave.upsideDown {
+	transform: rotate(180deg);
+}

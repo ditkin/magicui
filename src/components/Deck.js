@@ -4,6 +4,7 @@ import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
+import CardModel from '../models/Card'
 import Card from './Card'
 
 export default CreateReactClass({
@@ -32,12 +33,14 @@ export default CreateReactClass({
     const { me } = this.props
 
     const classes = classNames('deck', { me })
+    const card = CardModel.from({ faceDown: true })
 
     return (
       <div
       	className={classes}
       	onClick={this.maybeRenderWholeDeck}
       >
+      	<Card card={card} me={me} immobile={true} />
       </div>
     )
   },

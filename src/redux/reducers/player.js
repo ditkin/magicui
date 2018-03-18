@@ -7,7 +7,7 @@ const initialState = new Player()
 export default playerNumber => handleActions(
   {
     [ActionTypes.GAME_UPDATED](player, action) {
-    	const playerId = `player${playerNumber}`
+      const playerId = `player${playerNumber}`
       return Player.from(action.payload[playerId])
     },
   },

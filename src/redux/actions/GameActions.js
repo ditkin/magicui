@@ -18,3 +18,12 @@ export function updateGameState() {
     )
   }
 }
+
+export function updateBoardState() {
+  // do I update the models, then make an API call?
+  // should that all be part of this action?
+  // how do I codify every update?
+  // should I use redux-observable to make the
+  // sync & API call happen after every updateBoardState
+  // action is dispatched?
+}

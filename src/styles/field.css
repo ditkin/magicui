@@ -1,3 +1,25 @@
+.player {
+	max-width: 900px;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: space-around;
+	border: 2px solid black;
+	border-radius: 3px;
+	margin: 5px;
+}
+
+.player.me {
+	margin-top: 10px;
+}
+
+.player.collapsed-cards {
+	width: 100px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
 .field {
 	max-width: 800px;
 	border: 1px solid green;
@@ -8,9 +30,9 @@
 }
 
 .card {
-	height: 60px;
-	width: 35px;
-	margin: 5px;
+	height: 70px;
+	width: 55px;
+	margin: 5px 10px 5px 10px;
 	text-align: center;
 	border: 2px solid gray;
 	border-radius: 3px;
@@ -19,5 +41,33 @@
 }
 
 .card.upsideDown {
+	transform: rotate(180deg);
+}
+
+.card.faceDown {
+	background: brown;
+}
+
+.grave {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 80px;
+	border: 1px solid red;
+	border-radius: 2px;
+	margin: 5px;
+}
+
+.deck {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 80px;
+	border: 1px solid black;
+	border-radius: 2px;
+	margin: 5px;
+}
+
+.grave.upsideDown {
 	transform: rotate(180deg);
 }

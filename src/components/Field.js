@@ -4,7 +4,7 @@ import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
-import Card from './Card'
+import Zone from './Zone'
 
 export default CreateReactClass({
 	propTypes: {
@@ -16,7 +16,7 @@ export default CreateReactClass({
 		const { cards, me } = this.props
 
 		return cards.map((card, index) => (
-			<Card key={index} card={card} me={me}/>
+			<Zone key={index} card={card} me={me}/>
 		))
 	},
 

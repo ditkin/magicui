@@ -8,7 +8,6 @@ const defaults = {
   imageSource: '',
 }
 
-
 export default class Card extends Record(defaults) {
   static from(json) {
     return new Card(json)
