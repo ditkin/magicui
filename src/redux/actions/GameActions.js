@@ -28,10 +28,13 @@ export function updateBoardState() {
   // action is dispatched?
 }
 
-export function moveCard(card, position) {
-  return {
-    type: ActionTypes.MOVE_CARD,
-    card,
-    position,
+export function moveCard(card, area, number, me) {
+  if (me) {
+    return {
+      type: ActionTypes.MOVE_CARD,
+      card,
+      area,
+      number,
+    }
   }
 }

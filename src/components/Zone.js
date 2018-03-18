@@ -8,10 +8,11 @@ import { DropTarget } from 'react-dnd'
 
 import CardModel from '../models/Card'
 import Card from './Card'
+import { moveCard } from '../redux/actions/GameActions'
 
 const zoneTarget = {
   drop(props, monitor) {
-    console.log('dropped')
+    props.dispatch(moveCard(props.card, props.area, props.number, props.me))
   }
 }
 

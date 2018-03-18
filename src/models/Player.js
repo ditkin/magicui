@@ -9,7 +9,6 @@ const defaults = {
 	exile: new List(),
 }
 
-
 export default class Player extends Record(defaults) {
   static from(json) {
     return new Player({

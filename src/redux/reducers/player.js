@@ -11,8 +11,7 @@ export default playerNumber => handleActions(
       return Player.from(action.payload[playerId])
     },
     [ActionTypes.MOVE_CARD](player, action) {
-      const playerId = `player${playerNumber}`
-      return Player.from(action.payload[playerId])
+      return player.setIn(['field', 0], action.card)
     },
   },
   initialState

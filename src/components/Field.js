@@ -7,18 +7,25 @@ import { List } from 'immutable'
 import Zone from './Zone'
 
 export default CreateReactClass({
-	propTypes: {
-		me: PropTypes.bool.isRequired,
-		cards: PropTypes.instanceOf(List).isRequired,
-	},
+  propTypes: {
+    dispatch: PropTypes.func.isRequired,
+    me: PropTypes.bool.isRequired,
+    cards: PropTypes.instanceOf(List).isRequired,
+  },
 
-	renderCards() {
-		const { cards, me } = this.props
+  renderCards() {
+    const { dispatch, cards, me } = this.props
 
-		return cards.map((card, index) => (
-			<Zone area="field" number={index} card={card} me={me} />
-		))
-	},
+    return cards.map((card, index) => (
+      <Zone
+        dispatch={dispatch}
+        area="field"
+        number={index}
+        card={card}
+        me={me}
+      />
+    ))
+  },
 
   render() {
     const { me } = this.props
@@ -27,7 +34,7 @@ export default CreateReactClass({
 
     return (
       <div className={classes}>
-      	{this.renderCards()}
+        {this.renderCards()}
       </div>
     )
   }
