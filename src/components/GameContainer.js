@@ -17,14 +17,14 @@ const GameContainer = CreateReactClass({
   },
 
   componentDidMount() {
-  	setInterval(
-  		() => this.props.dispatch(updateGameState()),
-  		1000
-		)
+    setInterval(
+      () => this.props.dispatch(updateGameState()),
+      1000
+    )
   },
 
   render() {
-  	const { dispatch, player1, player2 } = this.props
+    const { dispatch, player1, player2 } = this.props
     return (
       <div>
         <PlayerContainer dispatch={dispatch} me={false} player={player1} />
@@ -36,8 +36,8 @@ const GameContainer = CreateReactClass({
 
 const ConnectedGame = connect(state => ({
   dispatch: PropTypes.func.isRequired,
-	player1: state.player1,
-	player2: state.player2,
+  player1: state.player1,
+  player2: state.player2,
 }))(GameContainer)
 
 export default DragDropContext(HTML5Backend)(ConnectedGame)
