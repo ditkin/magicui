@@ -40,6 +40,11 @@
 	overflow: scroll;
 }
 
+.card.isDragging {
+	opacity: 0.5;
+	cursor: move;
+}
+
 .card.upsideDown {
 	transform: rotate(180deg);
 }
@@ -70,4 +75,14 @@
 
 .grave.upsideDown {
 	transform: rotate(180deg);
+}
+
+.zone {
+	border: 1px solid gray;
+	border-radius: 3px;
+}
+
+.zone.isOver {
+	background: yellow;
+	opacity: 0.5;
 }

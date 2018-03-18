@@ -2,13 +2,28 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
+import { ItemTypes } from '../constants'
+import { DragSource } from 'react-dnd'
 
-import Card from '../models/Card'
+import CardModel from '../models/Card'
 
-export default CreateReactClass({
+const cardSource = {
+  beginDrag(props) {
+    return {};
+  }
+}
+
+const collect = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+})
+
+const Card = CreateReactClass({
 	propTypes: {
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired,
 		me: PropTypes.bool.isRequired,
-		card: PropTypes.instanceOf(Card).isRequired,
+		card: PropTypes.instanceOf(CardModel).isRequired,
     immobile: PropTypes.bool,
 	},
 
@@ -30,15 +45,16 @@ export default CreateReactClass({
 
   render() {
     const { sideways } = this.state
-    const { me, card } = this.props
+    const { connectDragSource, isDragging, me, card } = this.props
 
     const classes = classNames('card', {
     	upsideDown: !me,
       faceDown: card.faceDown,
       sideways,
+      isDragging,
     })
 
-    return (
+    return connectDragSource(
       <div
       	className={classes}
         onClick={this.handleClick}
@@ -48,3 +64,5 @@ export default CreateReactClass({
     )
   }
 })
+
+export default DragSource(ItemTypes.CARD, cardSource, collect)(Card)

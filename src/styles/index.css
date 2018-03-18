@@ -13,11 +13,6 @@ body {
 	margin: 5px;
 }
 
-.zone {
-	border: 1px solid gray;
-	border-radius: 3px;
-}
-
 .card {
 	height: 60px;
 	width: 35px;

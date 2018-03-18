@@ -16,7 +16,7 @@ export default CreateReactClass({
 		const { cards, me } = this.props
 
 		return cards.map((card, index) => (
-			<Zone key={index} card={card} me={me}/>
+			<Zone area="field" number={index} card={card} me={me} />
 		))
 	},
 

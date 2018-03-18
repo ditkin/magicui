@@ -10,6 +10,10 @@ export default playerNumber => handleActions(
       const playerId = `player${playerNumber}`
       return Player.from(action.payload[playerId])
     },
+    [ActionTypes.MOVE_CARD](player, action) {
+      const playerId = `player${playerNumber}`
+      return Player.from(action.payload[playerId])
+    },
   },
   initialState
 )

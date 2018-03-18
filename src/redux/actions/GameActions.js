@@ -27,3 +27,11 @@ export function updateBoardState() {
   // sync & API call happen after every updateBoardState
   // action is dispatched?
 }
+
+export function moveCard(card, position) {
+  return {
+    type: ActionTypes.MOVE_CARD,
+    card,
+    position,
+  }
+}
