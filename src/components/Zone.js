@@ -10,8 +10,11 @@ import CardModel from '../models/Card'
 import Card from './Card'
 
 const zoneTarget = {
-  drop(props, monitor) {
-    props.moveCard(props.id, props.card, props.area, props.zoneNumber, props.me)
+  drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
+    const { area: fromArea, card } = monitor.getItem()
+
+    moveCardFrom(fromArea, { id, card })
+    moveCardTo(area, { id, card, zoneNumber })
   }
 }
 
@@ -33,13 +36,28 @@ const Zone = CreateReactClass({
   },
 
   render() {
-    const { connectDropTarget, isOver, me, card } = this.props
+    const {
+      connectDropTarget,
+      isOver,
+      id,
+      me,
+      card,
+      area,
+      moveCardFrom
+    } = this.props
 
     const classes = classNames('zone', { me, isOver })
 
     return connectDropTarget(
       <div className={classes}>
-        <Card card={card} me={me} immobile={false} />
+        <Card
+          card={card}
+          id={id}
+          me={me}
+          area={area}
+          immobile={false}
+          moveCardFrom={moveCardFrom}
+        />
       </div>
     )
   },

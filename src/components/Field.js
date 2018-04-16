@@ -8,14 +8,15 @@ import Zone from './Zone'
 
 export default CreateReactClass({
   propTypes: {
-    moveCard: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
     me: PropTypes.bool.isRequired,
     cards: PropTypes.instanceOf(List).isRequired,
+    moveCardFrom: PropTypes.func.isRequired,
+    moveCardTo: PropTypes.func.isRequired,
   },
 
   renderCards() {
-    const { me, moveCard, cards, id } = this.props
+    const { me, moveCardFrom, moveCardTo, cards, id } = this.props
 
     // TODO make areas constants
     return cards.map((card, index) => (
@@ -25,7 +26,8 @@ export default CreateReactClass({
         area="field"
         zoneNumber={index}
         card={card}
-        moveCard={moveCard}
+        moveCardFrom={moveCardFrom}
+        moveCardTo={moveCardTo}
       />
     ))
   },

@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { List } from 'immutable'
 
 import CardModel from '../models/Card'
+import Zone from './Zone'
 import Card from './Card'
 
 export default CreateReactClass({
@@ -17,7 +18,7 @@ export default CreateReactClass({
 		const { cards, me } = this.props
 
 		return cards.map((card, index) => (
-			<Card key={index} card={card} me={me}/>
+			<Zone key={index} card={card} me={me}/>
 		))
 	},
 

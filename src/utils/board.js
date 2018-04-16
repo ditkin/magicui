@@ -1,15 +1,17 @@
-import CardModel from '../models/Card'
+import Card from '../models/Card'
 
 export const moveFromArea = (area, action) => {
-  const cardIndex = area.get(action.id).findIndex(
-    card => card.name === action.card.name
+  const cardIndex = area.get(action.payload.id).findIndex(
+    card => card.name === action.payload.card.name
   )
-  return area.deleteIn([action.id, cardIndex])
+  return area.deleteIn([action.payload.id, cardIndex])
 }
 
-export const moveToArea = (area, action) => {
-  return area.setIn(
-    [action.id, action.zone],
-    CardModel.from(action.card)
+export const moveToArea = (areas, action) => {
+  return areas.update(
+    action.payload.id,
+    area => area.push(Card.from(action.payload.card))
   )
+    // [action.payload.id, action.payload.zone],
+    // CardModel.from(action.payload.card)
 }

@@ -13,6 +13,8 @@ export default CreateReactClass({
     id: PropTypes.number.isRequired,
 		me: PropTypes.bool.isRequired,
 		cards: PropTypes.instanceOf(List).isRequired,
+    moveCardFrom: PropTypes.func.isRequired,
+    moveCardTo: PropTypes.func.isRequired,
 	},
 
 	maybeRenderWholeDeck() {
@@ -24,13 +26,20 @@ export default CreateReactClass({
 	},
 
 	renderWholeDeck() {
-		const { id, me, cards } = this.props
+		const { id, me, cards, moveCardFrom, moveCardTo } = this.props
 
     // TODO make areas constants
 
     // TODO MODAL
 		return cards.map(card => (
-			<Zone id={id} me={me} card={card} area="deck" />
+			<Zone
+        id={id}
+        me={me}
+        card={card}
+        area="deck"
+        moveCardFrom={moveCardFrom}
+        moveCardTo={moveCardTo}
+      />
 		))
 	},
 

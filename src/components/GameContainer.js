@@ -17,13 +17,14 @@ const Game = CreateReactClass({
     opponentId: PropTypes.number.isRequired,
   },
 
-  componentDidMount() {
+  componentWillMount() {
     const { createGame, updateGameState } = this.props
-    setInterval(() => updateGameState(), 1000)
+    updateGameState()
+    //setInterval(() => updateGameState(), 1000)
   },
 
   render() {
-    const { game, userId, opponentId } = this.props
+    const { decks, userId, opponentId } = this.props
 
     return (
       <div>
@@ -35,7 +36,6 @@ const Game = CreateReactClass({
 })
 
 const ConnectedGame = connect(state => ({
-  game: state.game,
   userId: state.user.id,
   opponentId: state.opponent.id,
 }), {

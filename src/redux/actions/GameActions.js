@@ -28,13 +28,21 @@ export function updateBoardState() {
   // action is dispatched?
 }
 
-const moveFrom = area => createAction(
+export const moveFrom = area => createAction(
   ActionTypes[`FROM_${area.toUpperCase()}`]
 )
 
-const moveTo = area => createAction(
+export const moveTo = area => createAction(
   ActionTypes[`TO_${area.toUpperCase()}`]
 )
+
+export function moveCardFrom(area, ...props) {
+  return dispatch => dispatch(moveFrom(area)(...props))
+}
+
+export function moveCardTo(area, ...props) {
+  return dispatch => dispatch(moveTo(area)(...props))
+}
 
 export function moveCard(id, card, areaFrom, areaTo, zone) {
   return dispatch => {

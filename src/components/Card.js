@@ -8,9 +8,9 @@ import { DragSource } from 'react-dnd'
 import CardModel from '../models/Card'
 
 const cardSource = {
-  beginDrag(props) {
-    return {};
-  }
+  beginDrag({ area, card }) {
+    return { area, card }
+  },
 }
 
 const collect = (connect, monitor) => ({
@@ -22,8 +22,10 @@ const Card = CreateReactClass({
 	propTypes: {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
 		me: PropTypes.bool.isRequired,
 		card: PropTypes.instanceOf(CardModel).isRequired,
+    area: PropTypes.string.isRequired,
     immobile: PropTypes.bool,
 	},
 

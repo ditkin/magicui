@@ -11,13 +11,15 @@ export default CreateReactClass({
     id: PropTypes.number.isRequired,
     me: PropTypes.bool.isRequired,
     cards: PropTypes.instanceOf(List).isRequired,
+    moveCardFrom: PropTypes.func.isRequired,
+    moveCardTo: PropTypes.func.isRequired,
   },
 
   renderCards() {
-    const { id, me, cards } = this.props
+    const { id, me, cards, moveCardFrom, moveCardTo } = this.props
     // TODO make areas constants
     return cards
-      .map(card => card.set('facedown', !me))
+      .map(card => card.set('faceDown', !me))
       .map((card, index) => (
         <Zone
           id={id}
@@ -25,6 +27,8 @@ export default CreateReactClass({
           area="hand"
           zoneNumber={index}
           card={card}
+          moveCardFrom={moveCardFrom}
+          moveCardTo={moveCardTo}
         />
       ))
   },

@@ -18,25 +18,30 @@ import {
 
 const Player = CreateReactClass({
   propTypes: {
-    moveCard: PropTypes.func.isRequired,
     id: PropTypes.number.isRequired,
     me: PropTypes.bool.isRequired,
     deck: PropTypes.instanceOf(List).isRequired,
     field: PropTypes.instanceOf(List).isRequired,
     grave: PropTypes.instanceOf(List).isRequired,
     hand: PropTypes.instanceOf(List).isRequired,
+    moveCardFrom: PropTypes.func.isRequired,
+    moveCardTo: PropTypes.func.isRequired,
   },
 
   render() {
-    const { moveCard, id, me, deck, field, grave, hand } = this.props
+    const { id, me, deck, field, grave, hand, moveCardFrom, moveCardTo } = this.props
+    if (!deck || deck.size === 0) {
+      return null
+    }
+
     return (
       <div className="player">
-        <Field id={id} me={me} moveCard={moveCard} cards={field} />
+        <Field id={id} me={me} cards={field} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
         <div className="collapsed-cards">
            <Grave id={id} me={me} cards={grave} />
            <Deck id={id} me={me} cards={deck} />
         </div>
-        <Hand id={id} me={me} cards={hand} />
+        <Hand id={id} me={me} cards={hand} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
       </div>
     )
   }
