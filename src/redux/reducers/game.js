@@ -1,13 +1,18 @@
 import { handleActions } from 'redux-actions'
+import { Seq } from 'immutable'
+
 import Player from '../../models/Player'
 import ActionTypes from '../actions/ActionTypes'
 
-const initialState = new Player()
+//import player from './player'
+
+//[action.userId]: itemsInUserReducer(state[action.userId], action)
+const initialState = {};
 
 export default handleActions(
   {
-    [ActionTypes.GAME_UPDATED](player, action) {
-      return Player.from(action.payload)
+    [ActionTypes.GAME_UPDATED](game, action) {
+      return Seq(action.payload).map(player => Player.from(player)).toMap()
     },
     [ActionTypes.MOVE_CARD](player, action) {
       return player.setIn(

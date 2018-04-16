@@ -2,42 +2,45 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import { connect } from 'react-redux'
-
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 
-import { updateGameState } from '../redux/actions/GameActions'
+import * as RoomActions from '../redux/actions/RoomActions'
+import * as GameActions from '../redux/actions/GameActions'
 import PlayerContainer from './PlayerContainer'
-import Player from '../models/Player'
 
-const GameContainer = CreateReactClass({
+const Game = CreateReactClass({
   propTypes: {
-    player1: PropTypes.instanceOf(Player).isRequired,
-    player2: PropTypes.instanceOf(Player).isRequired,
+    updateGameState: PropTypes.func.isRequired,
+    game: PropTypes.instanceOf(Map).isRequired,
+    userId: PropTypes.number.isRequired,
+    opponentId: PropTypes.number.isRequired,
   },
 
   componentDidMount() {
-    setInterval(
-      () => this.props.dispatch(updateGameState()),
-      1000
-    )
+    const { createGame, updateGameState } = this.props
+    setInterval(() => updateGameState(), 1000)
   },
 
   render() {
-    const { dispatch, player1, player2 } = this.props
+    const { game, userId, opponentId } = this.props
+
     return (
       <div>
-        <PlayerContainer dispatch={dispatch} me={false} player={player1} />
-        <PlayerContainer dispatch={dispatch} me={true} player={player2} />
+        <PlayerContainer id={opponentId} me={false} />
+        <PlayerContainer id={userId} me={true} />
       </div>
     )
   },
 })
 
 const ConnectedGame = connect(state => ({
-  dispatch: PropTypes.func.isRequired,
-  player1: state.player1,
-  player2: state.player2,
-}))(GameContainer)
+  game: state.game,
+  userId: state.user.id,
+  opponentId: state.opponent.id,
+}), {
+  ...GameActions,
+  ...RoomActions,
+})(Game)
 
 export default DragDropContext(HTML5Backend)(ConnectedGame)

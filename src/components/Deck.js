@@ -6,9 +6,11 @@ import { List } from 'immutable'
 
 import CardModel from '../models/Card'
 import Card from './Card'
+import Zone from './Zone'
 
 export default CreateReactClass({
 	propTypes: {
+    id: PropTypes.number.isRequired,
 		me: PropTypes.bool.isRequired,
 		cards: PropTypes.instanceOf(List).isRequired,
 	},
@@ -22,10 +24,13 @@ export default CreateReactClass({
 	},
 
 	renderWholeDeck() {
-		const { me, cards } = this.props
+		const { id, me, cards } = this.props
 
+    // TODO make areas constants
+
+    // TODO MODAL
 		return cards.map(card => (
-			<Card card={card} me={me} />
+			<Zone id={id} me={me} card={card} area="deck" />
 		))
 	},
 

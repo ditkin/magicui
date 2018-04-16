@@ -1,8 +1,23 @@
 import { combineReducers } from 'redux'
 
-import player from './player'
+import game from './game'
+import room from './room'
+
+import decks from './decks'
+import hands from './hands'
+import fields from './fields'
+import graves from './graves'
 
 export default combineReducers({
-  player1: player(1),
-  player2: player(2),
+  user: (state) => ({
+    id: 123,
+  }),
+  opponent: (state) => ({
+    id: 456,
+  }),
+  room,
+  decks,
+  hands,
+  fields,
+  graves,
 })

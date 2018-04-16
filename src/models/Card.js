@@ -13,4 +13,3 @@ export default class Card extends Record(defaults) {
     return new Card(json)
   }
 }
-

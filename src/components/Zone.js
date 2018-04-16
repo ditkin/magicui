@@ -8,11 +8,10 @@ import { DropTarget } from 'react-dnd'
 
 import CardModel from '../models/Card'
 import Card from './Card'
-import { moveCard } from '../redux/actions/GameActions'
 
 const zoneTarget = {
   drop(props, monitor) {
-    props.dispatch(moveCard(props.card, props.area, props.number, props.me))
+    props.moveCard(props.id, props.card, props.area, props.zoneNumber, props.me)
   }
 }
 
@@ -25,8 +24,10 @@ const Zone = CreateReactClass({
   propTypes: {
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
-    number: PropTypes.number.isRequired,
+    moveCard: PropTypes.func.isRequired,
+    zoneNumber: PropTypes.number.isRequired,
     area: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     me: PropTypes.bool.isRequired,
     card: PropTypes.instanceOf(CardModel).isRequired,
   },
