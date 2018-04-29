@@ -5,31 +5,34 @@ import classNames from 'classnames'
 import { List } from 'immutable'
 
 import CardModel from '../models/Card'
-import Zone from './Zone'
 import Card from './Card'
+import StackZone from './StackZone'
 
 export default CreateReactClass({
 	propTypes: {
+    id: PropTypes.number.isRequired,
 		me: PropTypes.bool.isRequired,
 		cards: PropTypes.instanceOf(List).isRequired,
-	},
-
-	renderCards() {
-		const { cards, me } = this.props
-
-		return cards.map((card, index) => (
-			<Zone key={index} card={card} me={me}/>
-		))
+    moveCardFrom: PropTypes.func.isRequired,
+    moveCardTo: PropTypes.func.isRequired,
 	},
 
   render() {
-    const { me } = this.props
+    const { id, me, cards, moveCardFrom, moveCardTo } = this.props
+
     const classes = classNames('grave', { me })
-    const card = CardModel.from({ faceDown: true })
+    const destinations = List([ 'hand', 'field', 'deck' ])
+
     return (
-      <div className={classes}>
-      	<Card card={card} me={me} immobile={true} />
-      </div>
+      <StackZone
+        area="grave"
+        id={id}
+        me={me}
+        cards={cards}
+        moveCardFrom={moveCardFrom}
+        moveCardTo={moveCardTo}
+        destinations={destinations}
+      />
     )
   }
 })

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
+import { List } from 'immutable'
 
 import { ItemTypes } from '../constants'
 import { DropTarget } from 'react-dnd'
@@ -13,8 +14,10 @@ const zoneTarget = {
   drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
     const { area: fromArea, card } = monitor.getItem()
 
-    moveCardFrom(fromArea, { id, card })
-    moveCardTo(area, { id, card, zoneNumber })
+    if (fromArea && area) {
+      moveCardFrom(fromArea, { id, card })
+      moveCardTo(area, { id, card, zoneNumber })
+    }
   }
 }
 
@@ -27,37 +30,31 @@ const Zone = CreateReactClass({
   propTypes: {
     connectDropTarget: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
-    moveCard: PropTypes.func.isRequired,
     zoneNumber: PropTypes.number.isRequired,
     area: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     me: PropTypes.bool.isRequired,
-    card: PropTypes.instanceOf(CardModel).isRequired,
+    moveCardFrom: PropTypes.func.isRequired,
+    moveCardTo: PropTypes.func.isRequired,
   },
 
   render() {
     const {
       connectDropTarget,
       isOver,
+      children,
       id,
       me,
-      card,
       area,
-      moveCardFrom
+      moveCardFrom,
+      classes,
     } = this.props
 
-    const classes = classNames('zone', { me, isOver })
+    const zoneClasses = classNames(`${classes} zone`, { me, isOver })
 
     return connectDropTarget(
-      <div className={classes}>
-        <Card
-          card={card}
-          id={id}
-          me={me}
-          area={area}
-          immobile={false}
-          moveCardFrom={moveCardFrom}
-        />
+      <div className={zoneClasses}>
+        {children}
       </div>
     )
   },

@@ -9,10 +9,10 @@ export default keyMirror({
   FROM_DECK: null,
   FROM_FIELD: null,
   FROM_HAND: null,
-  FROM_DECK: null,
+  FROM_GRAVE: null,
 
   TO_DECK: null,
   TO_FIELD: null,
   TO_HAND: null,
-  TO_DECK: null,
+  TO_GRAVE: null,
 })

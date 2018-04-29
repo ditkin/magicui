@@ -73,6 +73,10 @@
 	margin: 5px;
 }
 
+.deckList {
+	margin-left: 10px;
+}
+
 .grave.upsideDown {
 	transform: rotate(180deg);
 }

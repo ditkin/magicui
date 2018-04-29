@@ -12,6 +12,4 @@ export const moveToArea = (areas, action) => {
     action.payload.id,
     area => area.push(Card.from(action.payload.card))
   )
-    // [action.payload.id, action.payload.zone],
-    // CardModel.from(action.payload.card)
 }

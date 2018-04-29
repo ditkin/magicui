@@ -8,8 +8,13 @@ import { DragSource } from 'react-dnd'
 import CardModel from '../models/Card'
 
 const cardSource = {
-  beginDrag({ area, card }) {
+  beginDrag({ area, card, onDrag }) {
+    if (onDrag) onDrag()
     return { area, card }
+  },
+
+  canDrag({ me, immobile }) {
+    return me && !immobile
   },
 }
 

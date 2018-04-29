@@ -6,7 +6,7 @@ import { List } from 'immutable'
 
 import CardModel from '../models/Card'
 import Card from './Card'
-import Zone from './Zone'
+import StackZone from './StackZone'
 
 export default CreateReactClass({
 	propTypes: {
@@ -25,37 +25,22 @@ export default CreateReactClass({
 		}
 	},
 
-	renderWholeDeck() {
-		const { id, me, cards, moveCardFrom, moveCardTo } = this.props
-
-    // TODO make areas constants
-
-    // TODO MODAL
-		return cards.map(card => (
-			<Zone
-        id={id}
-        me={me}
-        card={card}
-        area="deck"
-        moveCardFrom={moveCardFrom}
-        moveCardTo={moveCardTo}
-      />
-		))
-	},
-
   render() {
-    const { me } = this.props
+    const { id, me, cards, moveCardFrom, moveCardTo } = this.props
 
     const classes = classNames('deck', { me })
-    const card = CardModel.from({ faceDown: true })
+    const destinations = List([ 'hand', 'field', 'grave' ])
 
     return (
-      <div
-      	className={classes}
-      	onClick={this.maybeRenderWholeDeck}
-      >
-      	<Card card={card} me={me} immobile={true} />
-      </div>
+      <StackZone
+        area="deck"
+        id={id}
+        me={me}
+        cards={cards}
+        moveCardFrom={moveCardFrom}
+        moveCardTo={moveCardTo}
+        destinations={destinations}
+      />
     )
   },
 })

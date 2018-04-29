@@ -4,7 +4,7 @@ import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
-import Zone from './Zone'
+import CardZone from './CardZone'
 
 export default CreateReactClass({
   propTypes: {
@@ -15,32 +15,18 @@ export default CreateReactClass({
     moveCardTo: PropTypes.func.isRequired,
   },
 
-  renderCards() {
-    const { me, moveCardFrom, moveCardTo, cards, id } = this.props
+  render() {
+    const { id, me, cards, moveCardFrom, moveCardTo } = this.props
 
-    // TODO make areas constants
-    return cards.map((card, index) => (
-      <Zone
+    return (
+      <CardZone
+        area="field"
         id={id}
         me={me}
-        area="field"
-        zoneNumber={index}
-        card={card}
+        cards={cards}
         moveCardFrom={moveCardFrom}
         moveCardTo={moveCardTo}
       />
-    ))
-  },
-
-  render() {
-    const { me } = this.props
-
-    const classes = classNames('field', { me })
-
-    return (
-      <div className={classes}>
-        {this.renderCards()}
-      </div>
     )
   }
 })
