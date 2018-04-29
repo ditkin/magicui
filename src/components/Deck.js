@@ -4,7 +4,6 @@ import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
-import CardModel from '../models/Card'
 import Card from './Card'
 import StackZone from './StackZone'
 
@@ -15,14 +14,6 @@ export default CreateReactClass({
 		cards: PropTypes.instanceOf(List).isRequired,
     moveCardFrom: PropTypes.func.isRequired,
     moveCardTo: PropTypes.func.isRequired,
-	},
-
-	maybeRenderWholeDeck() {
-		const { me } = this.props
-
-		if (me) {
-			alert('jaja!')
-		}
 	},
 
   render() {

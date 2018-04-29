@@ -8,8 +8,8 @@ import { List } from 'immutable'
 import { ItemTypes } from '../constants'
 import { DropTarget } from 'react-dnd'
 
-import CardModel from '../models/Card'
 import Card from './Card'
+import PlaceholderCard from './PlaceholderCard'
 import CardZone from './CardZone'
 import Zone from './Zone'
 
@@ -156,11 +156,10 @@ const StackZone = CreateReactClass({
     } = this.props
 
     const classes = classNames('zone', area, { me, isOver })
-    const card = CardModel.from({ faceDown: true })
 
     return connectDropTarget(
       <div className={classes} onClick={this.openModal}>
-        <Card card={card} me={me} immobile={true} />
+        <PlaceholderCard />
         {this.renderModal()}
       </div>
     )

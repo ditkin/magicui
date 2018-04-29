@@ -16,6 +16,8 @@ import {
   getHand,
 } from '../redux/selectors/board'
 
+import UIFlex from './UIFlex'
+
 const Player = CreateReactClass({
   propTypes: {
     id: PropTypes.number.isRequired,
@@ -36,12 +38,14 @@ const Player = CreateReactClass({
 
     return (
       <div className="player">
-        <Field id={id} me={me} cards={field} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
-        <div className="collapsed-cards">
+        <UIFlex direction="column" swap={!me}>
+          <Field id={id} me={me} cards={field} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
+          <Hand id={id} me={me} cards={hand} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
+        </UIFlex>
+        <UIFlex direction="column" swap={!me} width="100px">
            <Grave id={id} me={me} cards={grave} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
            <Deck id={id} me={me} cards={deck} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
-        </div>
-        <Hand id={id} me={me} cards={hand} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
+        </UIFlex>
       </div>
     )
   }

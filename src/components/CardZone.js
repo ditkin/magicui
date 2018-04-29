@@ -6,9 +6,9 @@ import { List } from 'immutable'
 
 import { ItemTypes } from '../constants'
 
-import CardModel from '../models/Card'
 import Zone from './Zone'
 import Card from './Card'
+import PlaceholderCard from './PlaceholderCard'
 
 export default CreateReactClass({
   propTypes: {
@@ -22,13 +22,18 @@ export default CreateReactClass({
     classes: PropTypes.string,
   },
 
+  isTurnable(me, area) {
+    return area === 'hand' ? false : me
+  },
+
   renderCards() {
     const { id, me, cards, area, moveCardFrom, moveCardTo, onDrag } = this.props
 
     if (cards.size === 0) {
-      const card = CardModel.from({ faceDown: true })
-      return <Card card={card} immobile={true} />
+      return <PlaceholderCard />
     }
+
+    const turnable = this.isTurnable(me, area)
 
     // TODO make areas constants
     return cards.map((card, index) => (
@@ -38,6 +43,7 @@ export default CreateReactClass({
         area={area}
         zoneNumber={index}
         card={card}
+        turnable={turnable}
         moveCardFrom={moveCardFrom}
         moveCardTo={moveCardTo}
         onDrag={onDrag}

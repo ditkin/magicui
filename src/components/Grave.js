@@ -4,7 +4,6 @@ import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
-import CardModel from '../models/Card'
 import Card from './Card'
 import StackZone from './StackZone'
 

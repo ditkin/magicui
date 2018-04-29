@@ -20,7 +20,7 @@
 	flex-direction: column;
 }
 
-.field {
+.field, .hand {
 	max-width: 800px;
 	border: 1px solid green;
 	border-radius: 2px;
@@ -53,22 +53,22 @@
 	background: brown;
 }
 
-.grave {
+.zone.grave {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	width: 80px;
-	border: 1px solid red;
+	border: 3px solid red;
 	border-radius: 2px;
 	margin: 5px;
 }
 
-.deck {
+.zone.deck {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
 	width: 80px;
-	border: 1px solid black;
+	border: 3px solid black;
 	border-radius: 2px;
 	margin: 5px;
 }

@@ -13,8 +13,8 @@ const cardSource = {
     return { area, card }
   },
 
-  canDrag({ me, immobile }) {
-    return me && !immobile
+  canDrag({ me }) {
+    return me
   },
 }
 
@@ -31,7 +31,7 @@ const Card = CreateReactClass({
 		me: PropTypes.bool.isRequired,
 		card: PropTypes.instanceOf(CardModel).isRequired,
     area: PropTypes.string.isRequired,
-    immobile: PropTypes.bool,
+    turnable: PropTypes.bool,
 	},
 
   getInitialState() {
@@ -41,12 +41,16 @@ const Card = CreateReactClass({
   },
 
   handleClick() {
-    // TODO: reactDnD can tell apart click and drag?
-    this.setState((state, props) => {
-      const manipulable = props.me && !props.immobile
-      return manipulable
-        ? { sideways: !state.sideways }
-        : { targeted: true }
+    this.setState((state, { me, turnable }) => {
+      const manipulable = me && turnable
+      if (manipulable) {
+        return { sideways: !state.sideways }
+      }
+      if (me) {
+        return null
+      }
+
+      return { targeted: true }
     })
   },
 
