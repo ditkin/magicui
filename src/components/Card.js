@@ -8,8 +8,9 @@ import { DragSource } from 'react-dnd'
 import CardModel from '../models/Card'
 
 const cardSource = {
-  beginDrag({ area, card, onDrag }) {
-    if (onDrag) onDrag()
+  beginDrag({ area, onDrag, card }) {
+    onDrag && onDrag()
+
     return { area, card }
   },
 
@@ -54,6 +55,10 @@ const Card = CreateReactClass({
     })
   },
 
+  getDisplayName({ faceDown, name }) {
+    return faceDown ? null : name
+  },
+
   render() {
     const { sideways } = this.state
     const { connectDragSource, isDragging, me, card } = this.props
@@ -70,7 +75,7 @@ const Card = CreateReactClass({
       	className={classes}
         onClick={this.handleClick}
       >
-      	{card.name}
+      	{this.getDisplayName(card)}
       </div>
     )
   }

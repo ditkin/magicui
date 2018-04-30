@@ -12,10 +12,12 @@ import Card from './Card'
 import PlaceholderCard from './PlaceholderCard'
 import CardZone from './CardZone'
 import Zone from './Zone'
+import UIFlex from './UIFlex'
 
 const zoneTarget = {
   drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
-    const { area: fromArea, card } = monitor.getItem()
+    const { area: fromArea, card: cardData } = monitor.getItem()
+    const card = cardData.set('faceDown', false)
 
     if (fromArea && area) {
       moveCardFrom(fromArea, { id, card })
@@ -24,7 +26,9 @@ const zoneTarget = {
   },
 
   hover(props, monitor, component) {
-    component.openModal()
+    if (!monitor.getItem().card.faceDown) {
+      component.openModal()
+    }
   },
 }
 
@@ -132,15 +136,10 @@ const StackZone = CreateReactClass({
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
+        <UIFlex>
           {this.renderDestinations()}
           {this.renderZone()}
-        </div>
+        </UIFlex>
       </Modal>
     )
   },
@@ -152,14 +151,16 @@ const StackZone = CreateReactClass({
       area,
       id,
       me,
+      cards,
       moveCardFrom
     } = this.props
 
     const classes = classNames('zone', area, { me, isOver })
+    const card = cards.first().set('faceDown', true)
 
     return connectDropTarget(
       <div className={classes} onClick={this.openModal}>
-        <PlaceholderCard />
+        <Card id={id} me={me} card={card} area={area} />
         {this.renderModal()}
       </div>
     )

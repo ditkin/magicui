@@ -12,7 +12,8 @@ import Card from './Card'
 
 const zoneTarget = {
   drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
-    const { area: fromArea, card } = monitor.getItem()
+    const { area: fromArea, card: cardData } = monitor.getItem()
+    const card = cardData.set('faceDown', false)
 
     if (fromArea && area) {
       moveCardFrom(fromArea, { id, card })
