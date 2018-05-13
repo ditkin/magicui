@@ -1,5 +1,3 @@
 import React from 'react'
 
-export default () => (
-  <div className="card faceDown" />
-)
+export default () => <div className="card faceDown" />

@@ -32,5 +32,5 @@ export default CreateReactClass({
         moveCardTo={moveCardTo}
       />
     )
-  }
+  },
 })

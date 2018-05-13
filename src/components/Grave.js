@@ -8,19 +8,19 @@ import Card from './Card'
 import StackZone from './StackZone'
 
 export default CreateReactClass({
-	propTypes: {
+  propTypes: {
     id: PropTypes.number.isRequired,
-		me: PropTypes.bool.isRequired,
-		cards: PropTypes.instanceOf(List).isRequired,
+    me: PropTypes.bool.isRequired,
+    cards: PropTypes.instanceOf(List).isRequired,
     moveCardFrom: PropTypes.func.isRequired,
     moveCardTo: PropTypes.func.isRequired,
-	},
+  },
 
   render() {
     const { id, me, cards, moveCardFrom, moveCardTo } = this.props
 
     const classes = classNames('grave', { me })
-    const destinations = List([ 'hand', 'field', 'deck' ])
+    const destinations = List(['hand', 'field', 'deck'])
 
     return (
       <StackZone
@@ -33,5 +33,5 @@ export default CreateReactClass({
         destinations={destinations}
       />
     )
-  }
+  },
 })

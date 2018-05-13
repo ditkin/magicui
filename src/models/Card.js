@@ -1,8 +1,8 @@
 import { Record } from 'immutable'
 
 const defaults = {
-	sideways: false,
-	faceDown: false,
+  sideways: false,
+  faceDown: false,
   targeted: false,
   name: '',
   imageSource: '',

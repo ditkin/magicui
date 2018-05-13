@@ -10,7 +10,7 @@ import { DropTarget } from 'react-dnd'
 
 import Card from './Card'
 import PlaceholderCard from './PlaceholderCard'
-import CardZone from './CardZone'
+import PaginatedZone from './PaginatedZone'
 import Zone from './Zone'
 import UIFlex from './UIFlex'
 
@@ -88,7 +88,7 @@ const StackZone = CreateReactClass({
     const { id, me, cards, area, moveCardFrom, moveCardTo } = this.props
     // onDrag={this.closeModal}
     return (
-      <CardZone
+      <PaginatedZone
         classes="deckList"
         id={id}
         me={me}
@@ -136,7 +136,7 @@ const StackZone = CreateReactClass({
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
       >
-        <UIFlex>
+        <UIFlex align="start">
           {this.renderDestinations()}
           {this.renderZone()}
         </UIFlex>

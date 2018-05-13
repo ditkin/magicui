@@ -35,12 +35,15 @@ const Game = CreateReactClass({
   },
 })
 
-const ConnectedGame = connect(state => ({
-  userId: state.user.id,
-  opponentId: state.opponent.id,
-}), {
-  ...GameActions,
-  ...RoomActions,
-})(Game)
+const ConnectedGame = connect(
+  state => ({
+    userId: state.user.id,
+    opponentId: state.opponent.id,
+  }),
+  {
+    ...GameActions,
+    ...RoomActions,
+  }
+)(Game)
 
 export default DragDropContext(HTML5Backend)(ConnectedGame)

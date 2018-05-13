@@ -21,19 +21,19 @@ const cardSource = {
 
 const collect = (connect, monitor) => ({
   connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
+  isDragging: monitor.isDragging(),
 })
 
 const Card = CreateReactClass({
-	propTypes: {
+  propTypes: {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
-		me: PropTypes.bool.isRequired,
-		card: PropTypes.instanceOf(CardModel).isRequired,
+    me: PropTypes.bool.isRequired,
+    card: PropTypes.instanceOf(CardModel).isRequired,
     area: PropTypes.string.isRequired,
     turnable: PropTypes.bool,
-	},
+  },
 
   getInitialState() {
     return {
@@ -64,21 +64,18 @@ const Card = CreateReactClass({
     const { connectDragSource, isDragging, me, card } = this.props
 
     const classes = classNames('card', {
-    	upsideDown: !me,
+      upsideDown: !me,
       faceDown: card.faceDown,
       sideways,
       isDragging,
     })
 
     return connectDragSource(
-      <div
-      	className={classes}
-        onClick={this.handleClick}
-      >
-      	{this.getDisplayName(card)}
+      <div className={classes} onClick={this.handleClick}>
+        {this.getDisplayName(card)}
       </div>
     )
-  }
+  },
 })
 
 export default DragSource(ItemTypes.CARD, cardSource, collect)(Card)

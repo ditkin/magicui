@@ -19,7 +19,7 @@ const zoneTarget = {
       moveCardFrom(fromArea, { id, card })
       moveCardTo(area, { id, card, zoneNumber })
     }
-  }
+  },
 }
 
 const collect = (connect, monitor) => ({
@@ -53,11 +53,7 @@ const Zone = CreateReactClass({
 
     const zoneClasses = classNames(`${classes} zone`, { me, isOver })
 
-    return connectDropTarget(
-      <div className={zoneClasses}>
-        {children}
-      </div>
-    )
+    return connectDropTarget(<div className={zoneClasses}>{children}</div>)
   },
 })
 

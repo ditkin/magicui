@@ -1,4 +1,3 @@
-
 export const fetchGameMock = () => {
   return Promise.resolve({
     players: [

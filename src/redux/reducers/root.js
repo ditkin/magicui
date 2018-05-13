@@ -9,10 +9,10 @@ import fields from './fields'
 import graves from './graves'
 
 export default combineReducers({
-  user: (state) => ({
+  user: state => ({
     id: 123,
   }),
-  opponent: (state) => ({
+  opponent: state => ({
     id: 456,
   }),
   room,

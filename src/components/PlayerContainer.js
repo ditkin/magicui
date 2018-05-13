@@ -9,12 +9,7 @@ import Field from './Field'
 import Hand from './Hand'
 import Deck from './Deck'
 import Grave from './Grave'
-import {
-  getDeck,
-  getField,
-  getGrave,
-  getHand,
-} from '../redux/selectors/board'
+import { getDeck, getField, getGrave, getHand } from '../redux/selectors/board'
 
 import UIFlex from './UIFlex'
 
@@ -31,7 +26,16 @@ const Player = CreateReactClass({
   },
 
   render() {
-    const { id, me, deck, field, grave, hand, moveCardFrom, moveCardTo } = this.props
+    const {
+      id,
+      me,
+      deck,
+      field,
+      grave,
+      hand,
+      moveCardFrom,
+      moveCardTo,
+    } = this.props
     if (!deck || deck.size === 0) {
       return null
     }
@@ -39,23 +43,50 @@ const Player = CreateReactClass({
     return (
       <div className="player">
         <UIFlex direction="column" swap={!me}>
-          <Field id={id} me={me} cards={field} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
-          <Hand id={id} me={me} cards={hand} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
+          <Field
+            id={id}
+            me={me}
+            cards={field}
+            moveCardFrom={moveCardFrom}
+            moveCardTo={moveCardTo}
+          />
+          <Hand
+            id={id}
+            me={me}
+            cards={hand}
+            moveCardFrom={moveCardFrom}
+            moveCardTo={moveCardTo}
+          />
         </UIFlex>
         <UIFlex direction="column" swap={!me} width="100px">
-           <Grave id={id} me={me} cards={grave} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
-           <Deck id={id} me={me} cards={deck} moveCardFrom={moveCardFrom} moveCardTo={moveCardTo} />
+          <Grave
+            id={id}
+            me={me}
+            cards={grave}
+            moveCardFrom={moveCardFrom}
+            moveCardTo={moveCardTo}
+          />
+          <Deck
+            id={id}
+            me={me}
+            cards={deck}
+            moveCardFrom={moveCardFrom}
+            moveCardTo={moveCardTo}
+          />
         </UIFlex>
       </div>
     )
-  }
+  },
 })
 
-export default connect((state, props) => ({
-  deck: getDeck(props.id)(state),
-  field: getField(props.id)(state),
-  grave: getGrave(props.id)(state),
-  hand: getHand(props.id)(state),
-}), {
-  ...GameActions,
-})(Player)
+export default connect(
+  (state, props) => ({
+    deck: getDeck(props.id)(state),
+    field: getField(props.id)(state),
+    grave: getGrave(props.id)(state),
+    hand: getHand(props.id)(state),
+  }),
+  {
+    ...GameActions,
+  }
+)(Player)

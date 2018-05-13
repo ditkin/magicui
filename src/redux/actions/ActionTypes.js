@@ -1,9 +1,10 @@
-import keyMirror from 'keymirror';
+import keyMirror from 'keymirror'
 
 export default keyMirror({
   CREATE_GAME: null,
   JOIN_GAME: null,
   GAME_UPDATED: null,
+  SEND_GAME_UPDATE: null,
   GAME_UPDATE_FAILED: null,
 
   FROM_DECK: null,
