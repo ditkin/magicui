@@ -7,14 +7,12 @@ import decks from './decks'
 import hands from './hands'
 import fields from './fields'
 import graves from './graves'
+import user from './user'
+import opponent from './opponent'
 
 export default combineReducers({
-  user: state => ({
-    id: 123,
-  }),
-  opponent: state => ({
-    id: 456,
-  }),
+  user,
+  opponent,
   room,
   decks,
   hands,

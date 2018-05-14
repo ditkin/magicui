@@ -1,5 +1,6 @@
 import ActionTypes from '../redux/actions/ActionTypes'
 import { receiveGameUpdate } from '../redux/actions/GameActions'
+import { selfAwaken, challengerAppears } from '../redux/actions/RoomActions'
 
 export default dispatch => {
   const socket = new WebSocket('ws://localhost:2345')
@@ -19,9 +20,13 @@ export default dispatch => {
       // these actions have not been made yet. the BE now
       // sends messages like these. lets set IDs (opponent on GAME START)
       case 'WAITING_ROOM':
+        alert(`found first user (id: ${data.id})`)
         dispatch(selfAwaken(data.id))
+        break
       case 'GAME_START':
-        dispatch(selfAwaken(data.id))
+        alert(`found opponent (id: ${data.opponentid})`)
+        dispatch(challengerAppears(data.opponent.id))
+        break
       case 'OPPONENT_DISCONNECTED':
         //temporary suspend  & wait
       case 'MESSAGE':

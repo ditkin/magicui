@@ -19,7 +19,7 @@ const Game = CreateReactClass({
 
   componentWillMount() {
     const { createGame, updateGameState } = this.props
-    updateGameState()
+    //updateGameState()
     //setInterval(() => updateGameState(), 1000)
   },
 
