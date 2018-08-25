@@ -15,5 +15,5 @@ export const moveToArea = (areas, action) => {
 }
 
 export const isTurnable = memoize((me, area) => {
-    return area === 'hand' ? false : me
-  })
+  return area === 'hand' ? false : me
+})

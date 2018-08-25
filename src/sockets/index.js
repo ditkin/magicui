@@ -6,10 +6,12 @@ export default dispatch => {
   const socket = new WebSocket('ws://localhost:2345')
 
   socket.onopen = () => {
-    socket.send(JSON.stringify({
-      type: ActionTypes.JOIN_GAME,
-      id: 123,
-    }))
+    socket.send(
+      JSON.stringify({
+        type: ActionTypes.JOIN_GAME,
+        id: 123,
+      })
+    )
   }
   socket.onmessage = event => {
     const data = JSON.parse(event.data)
@@ -24,11 +26,11 @@ export default dispatch => {
         dispatch(selfAwaken(data.id))
         break
       case 'GAME_START':
-        alert(`found opponent (id: ${data.opponentid})`)
+        alert(`found opponent (id: ${data.opponent.id})`)
         dispatch(challengerAppears(data.opponent.id))
         break
       case 'OPPONENT_DISCONNECTED':
-        //temporary suspend  & wait
+      //temporary suspend  & wait
       case 'MESSAGE':
       default:
         console.log('message')
@@ -36,4 +38,3 @@ export default dispatch => {
   }
   return socket
 }
-

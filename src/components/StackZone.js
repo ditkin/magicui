@@ -1,5 +1,5 @@
 import React from 'react'
-import Modal from 'react-modal';
+import Modal from 'react-modal'
 import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
@@ -9,6 +9,7 @@ import { ItemTypes } from '../constants'
 import { DropTarget } from 'react-dnd'
 
 import Card from './Card'
+import CardModel from '../models/Card'
 import PlaceholderCard from './PlaceholderCard'
 import PaginatedZone from './PaginatedZone'
 import Zone from './Zone'
@@ -55,21 +56,23 @@ const StackZone = CreateReactClass({
   },
 
   escFunction({ keyCode }) {
-    if(keyCode === 27) {
+    if (keyCode === 27) {
       this.closeModal()
     }
   },
 
-  componentDidMount(){
-    document.addEventListener("keydown", this.escFunction, false);
+  componentDidMount() {
+    document.addEventListener('keydown', this.escFunction, false)
   },
 
-  componentWillUnmount(){
-    document.removeEventListener("keydown", this.escFunction, false);
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.escFunction, false)
   },
 
   openModal() {
-    this.setState({ modalIsOpen: true })
+    if (this.props.me) {
+      this.setState({ modalIsOpen: true })
+    }
   },
 
   closeModal() {
@@ -82,6 +85,16 @@ const StackZone = CreateReactClass({
 
   showModal() {
     this.setState({ modalIsVisible: true })
+  },
+
+  renderVisibleCard() {
+    const { cards, id, me, area } = this.props
+
+    const hasCards = cards.size > 0
+    const cardData = cards.first() || new CardModel()
+    const card = cardData.set('faceDown', true)
+
+    return <Card id={id} me={me} card={card} area={area} immobile={!hasCards} />
   },
 
   renderZone() {
@@ -102,7 +115,15 @@ const StackZone = CreateReactClass({
   },
 
   renderDestinations() {
-    const { destinations, id, me, cards, area, moveCardFrom, moveCardTo } = this.props
+    const {
+      destinations,
+      id,
+      me,
+      cards,
+      area,
+      moveCardFrom,
+      moveCardTo,
+    } = this.props
 
     return (
       <div
@@ -113,7 +134,7 @@ const StackZone = CreateReactClass({
         }}
       >
         {destinations.map(destination => (
-           <Zone
+          <Zone
             id={id}
             me={me}
             area={destination}
@@ -145,22 +166,13 @@ const StackZone = CreateReactClass({
   },
 
   render() {
-    const {
-      connectDropTarget,
-      isOver,
-      area,
-      id,
-      me,
-      cards,
-      moveCardFrom
-    } = this.props
+    const { connectDropTarget, isOver, area, me } = this.props
 
     const classes = classNames('zone', area, { me, isOver })
-    const card = cards.first().set('faceDown', true)
 
     return connectDropTarget(
       <div className={classes} onClick={this.openModal}>
-        <Card id={id} me={me} card={card} area={area} />
+        {this.renderVisibleCard()}
         {this.renderModal()}
       </div>
     )

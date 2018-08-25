@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
-
+import isEmpty from '@hs/transmute/isEmpty'
 import * as GameActions from '../redux/actions/GameActions'
 import Field from './Field'
 import Hand from './Hand'
@@ -36,7 +36,7 @@ const Player = CreateReactClass({
       moveCardFrom,
       moveCardTo,
     } = this.props
-    if (!deck || deck.size === 0) {
+    if (isEmpty(deck)) {
       return null
     }
 

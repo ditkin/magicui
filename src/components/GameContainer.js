@@ -24,7 +24,7 @@ const Game = CreateReactClass({
   },
 
   render() {
-    const { decks, userId, opponentId } = this.props
+    const { userId, opponentId } = this.props
 
     return (
       <div>

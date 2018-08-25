@@ -14,8 +14,8 @@ const cardSource = {
     return { area, card }
   },
 
-  canDrag({ me }) {
-    return me
+  canDrag({ immobile, me }) {
+    return !immobile && me
   },
 }
 
@@ -28,11 +28,12 @@ const Card = CreateReactClass({
   propTypes: {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
-    me: PropTypes.bool.isRequired,
-    card: PropTypes.instanceOf(CardModel).isRequired,
     area: PropTypes.string.isRequired,
+    me: PropTypes.bool.isRequired,
+    id: PropTypes.number,
+    card: PropTypes.instanceOf(CardModel).isRequired,
     turnable: PropTypes.bool,
+    immobile: PropTypes.bool,
   },
 
   getInitialState() {
