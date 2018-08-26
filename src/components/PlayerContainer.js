@@ -36,7 +36,8 @@ const Player = CreateReactClass({
       moveCardFrom,
       moveCardTo,
     } = this.props
-    if (isEmpty(deck)) {
+    // This container should only display once there are cards
+    if (!id || !deck) {
       return null
     }
 

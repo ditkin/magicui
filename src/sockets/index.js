@@ -23,10 +23,10 @@ export default dispatch => {
       // sends messages like these. lets set IDs (opponent on GAME START)
       case 'WAITING_ROOM':
         alert(`found first user (id: ${data.id})`)
-        dispatch(selfAwaken(data.id))
         break
       case 'GAME_START':
         alert(`found opponent (id: ${data.opponent.id})`)
+        dispatch(selfAwaken(data.user.id))
         dispatch(challengerAppears(data.opponent.id))
         break
       case 'OPPONENT_DISCONNECTED':
