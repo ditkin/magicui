@@ -27,6 +27,7 @@ export default CreateReactClass({
         area="grave"
         id={id}
         me={me}
+        visible={true}
         cards={cards}
         moveCardFrom={moveCardFrom}
         moveCardTo={moveCardTo}

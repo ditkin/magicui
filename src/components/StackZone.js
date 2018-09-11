@@ -26,11 +26,11 @@ const zoneTarget = {
     }
   },
 
-  hover(props, monitor, component) {
-    if (!monitor.getItem().card.faceDown) {
-      component.openModal()
-    }
-  },
+  // hover(props, monitor, component) {
+  //   if (!monitor.getItem().card.faceDown) {
+  //     component.openModal()
+  //   }
+  // },
 }
 
 const collect = (connect, monitor) => ({
@@ -49,6 +49,7 @@ const StackZone = CreateReactClass({
     moveCardFrom: PropTypes.func.isRequired,
     moveCardTo: PropTypes.func.isRequired,
     destinations: PropTypes.instanceOf(List).isRequired,
+    visible: PropTypes.bool,
   },
 
   getInitialState() {
@@ -79,20 +80,13 @@ const StackZone = CreateReactClass({
     this.setState({ modalIsOpen: false })
   },
 
-  hideModal() {
-    this.setState({ modalIsVisible: false })
-  },
-
-  showModal() {
-    this.setState({ modalIsVisible: true })
-  },
-
   renderVisibleCard() {
-    const { cards, id, me, area } = this.props
+    const { cards, id, me, area, visible } = this.props
 
     const hasCards = cards.size > 0
-    const cardData = cards.first() || new CardModel()
-    const card = cardData.set('faceDown', true)
+    const cardData = cards.last() || new CardModel()
+    const faceDown = !hasCards || !visible
+    const card = cardData.set('faceDown', faceDown)
 
     return <Card id={id} me={me} card={card} area={area} immobile={!hasCards} />
   },
@@ -149,7 +143,7 @@ const StackZone = CreateReactClass({
   },
 
   renderModal() {
-    const { modalIsOpen, modalIsVisible } = this.state
+    const { modalIsOpen } = this.state
     // TODO afterOpenModal go into drag state?
     return (
       <Modal
