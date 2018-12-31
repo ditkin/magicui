@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import React from 'react'
 import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
@@ -46,4 +47,4 @@ const ConnectedGame = connect(
   }
 )(Game)
 
-export default DragDropContext(HTML5Backend)(ConnectedGame)
+export default DragDropContext(hot(HTML5Backend(ConnectedGame)))
