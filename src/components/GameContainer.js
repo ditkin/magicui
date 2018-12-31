@@ -5,7 +5,6 @@ import CreateReactClass from 'create-react-class'
 import { connect } from 'react-redux'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
-
 import * as RoomActions from '../redux/actions/RoomActions'
 import * as GameActions from '../redux/actions/GameActions'
 import PlayerContainer from './PlayerContainer'
@@ -26,6 +25,7 @@ const Game = CreateReactClass({
 
   render() {
     const { userId, opponentId } = this.props
+    console.log(5)
 
     return (
       <div>
@@ -47,4 +47,4 @@ const ConnectedGame = connect(
   }
 )(Game)
 
-export default DragDropContext(hot(HTML5Backend(ConnectedGame)))
+export default hot(DragDropContext(HTML5Backend)(ConnectedGame))
