@@ -83,11 +83,11 @@ const Card = CreateReactClass({
 })
 
 export default compose(
-  DragSource(ItemTypes.CARD, cardSource, collect),
   connect(
     () => ({}),
     {
       ...GameActions,
     }
-  )
+  ),
+  DragSource(ItemTypes.CARD, cardSource, collect)
 )(Card)

@@ -1,5 +1,5 @@
 import Card from '../models/Card'
-import memoize from '@hs/transmute/memoize'
+// import memoize from 'transmute/memoize'
 
 export const moveFromArea = (area, action) => {
   const cardIndex = area
@@ -14,6 +14,6 @@ export const moveToArea = (areas, action) => {
   )
 }
 
-export const isTurnable = memoize((me, area) => {
+export const isTurnable = (me, area) => {
   return area === 'hand' ? false : me
-})
+}

@@ -58,11 +58,11 @@ Zone.propTypes = {
 }
 
 export default compose(
-  DropTarget(ItemTypes.CARD, zoneTarget, collect),
   connect(
     () => ({}),
     {
       ...GameActions,
     }
-  )
+  ),
+  DropTarget(ItemTypes.CARD, zoneTarget, collect)
 )(Zone)

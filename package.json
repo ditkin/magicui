@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "1.0.17",
-    "redux-thunk": "*",
-    "redux-actions": "*",
+    "classnames": "*",
     "immutable": "*",
-    "reselect": "*",
     "keymirror": "*",
-    "classnames": "*"
+    "react-scripts": "1.0.17",
+    "redux-actions": "*",
+    "redux-thunk": "*",
+    "reselect": "*",
+    "@hs/transmute": "^2.0.0"
   },
   "dependencies": {
     "@hs/transmute": "^2.0.0",
