@@ -14,6 +14,9 @@ import PlaceholderCard from './PlaceholderCard'
 import PaginatedZone from './PaginatedZone'
 import Zone from './Zone'
 import UIFlex from './UIFlex'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import * as GameActions from '../redux/actions/GameActions'
 
 const zoneTarget = {
   drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
@@ -109,15 +112,7 @@ const StackZone = CreateReactClass({
   },
 
   renderDestinations() {
-    const {
-      destinations,
-      id,
-      me,
-      cards,
-      area,
-      moveCardFrom,
-      moveCardTo,
-    } = this.props
+    const { destinations, id, me, cards, area } = this.props
 
     return (
       <div
@@ -128,13 +123,7 @@ const StackZone = CreateReactClass({
         }}
       >
         {destinations.map(destination => (
-          <Zone
-            id={id}
-            me={me}
-            area={destination}
-            moveCardFrom={moveCardFrom}
-            moveCardTo={moveCardTo}
-          >
+          <Zone id={id} me={me} area={destination}>
             <img src={`/${destination}.png`} />
           </Zone>
         ))}
@@ -173,4 +162,12 @@ const StackZone = CreateReactClass({
   },
 })
 
-export default DropTarget(ItemTypes.CARD, zoneTarget, collect)(StackZone)
+export default compose(
+  DropTarget(ItemTypes.CARD, zoneTarget, collect),
+  connect(
+    () => ({}),
+    {
+      ...GameActions,
+    }
+  )
+)(StackZone)

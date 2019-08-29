@@ -10,72 +10,38 @@ import Zone from './Zone'
 import Card from './Card'
 import PlaceholderCard from './PlaceholderCard'
 
-export default CreateReactClass({
-  propTypes: {
-    id: PropTypes.number.isRequired,
-    me: PropTypes.bool.isRequired,
-    area: PropTypes.string.isRequired,
-    cards: PropTypes.instanceOf(List).isRequired,
-    moveCardFrom: PropTypes.func.isRequired,
-    moveCardTo: PropTypes.func.isRequired,
-    onDrag: PropTypes.func,
-    classes: PropTypes.string,
-  },
+const CardZone = ({ id, me, area, cards, classes }) => {
+  const zoneClasses = classes || classNames(area)
 
-  isTurnable(me, area) {
-    return area === 'hand' ? false : me
-  },
+  const turnable = area === 'hand' ? false : me
 
-  renderCards() {
-    const { id, me, cards, area, moveCardFrom, moveCardTo, onDrag } = this.props
+  return (
+    <Zone classes={zoneClasses} id={id} me={me} area={area}>
+      {cards.size === 0 ? (
+        <PlaceholderCard />
+      ) : (
+        cards.map((card, index) => (
+          <Card
+            key={`${card.name}${index}`}
+            id={id}
+            me={me}
+            area={area}
+            zoneNumber={index}
+            card={card}
+            turnable={turnable}
+          />
+        ))
+      )}
+    </Zone>
+  )
+}
 
-    if (cards.size === 0) {
-      return <PlaceholderCard />
-    }
+CardZone.propTypes = {
+  id: PropTypes.number.isRequired,
+  me: PropTypes.bool.isRequired,
+  area: PropTypes.string.isRequired,
+  cards: PropTypes.instanceOf(List).isRequired,
+  classes: PropTypes.string,
+}
 
-    const turnable = this.isTurnable(me, area)
-
-    // TODO make areas constants
-    return cards.map((card, index) => (
-      <Card
-        id={id}
-        me={me}
-        area={area}
-        zoneNumber={index}
-        card={card}
-        turnable={turnable}
-        moveCardFrom={moveCardFrom}
-        moveCardTo={moveCardTo}
-        onDrag={onDrag}
-      />
-    ))
-  },
-
-  render() {
-    const {
-      classes,
-      id,
-      me,
-      area,
-      moveCardFrom,
-      moveCardTo,
-      onDrag,
-    } = this.props
-
-    const zoneClasses = classes || classNames(area)
-
-    return (
-      <Zone
-        classes={zoneClasses}
-        id={id}
-        me={me}
-        area={area}
-        moveCardFrom={moveCardFrom}
-        moveCardTo={moveCardTo}
-        onDrag={onDrag}
-      >
-        {this.renderCards()}
-      </Zone>
-    )
-  },
-})
+export default CardZone

@@ -3,7 +3,8 @@ import { receiveGameUpdate } from '../redux/actions/GameActions'
 import { selfAwaken, challengerAppears } from '../redux/actions/RoomActions'
 
 export default dispatch => {
-  const socket = new WebSocket('ws://localhost:2345')
+  // const socket = new WebSocket('ws://agnosticard-api.herokuapp.com/:1234')
+  const socket = new WebSocket('ws://localhost:1234')
 
   socket.onopen = () => {
     socket.send(

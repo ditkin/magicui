@@ -6,12 +6,15 @@ import { ItemTypes } from '../constants'
 import { DragSource } from 'react-dnd'
 
 import CardModel from '../models/Card'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import * as GameActions from '../redux/actions/GameActions'
 
 const cardSource = {
-  beginDrag({ area, onDrag, card }) {
+  beginDrag({ area, onDrag, card, id }) {
     onDrag && onDrag()
 
-    return { area, card }
+    return { area, card, id }
   },
 
   canDrag({ immobile, me }) {
@@ -79,4 +82,12 @@ const Card = CreateReactClass({
   },
 })
 
-export default DragSource(ItemTypes.CARD, cardSource, collect)(Card)
+export default compose(
+  DragSource(ItemTypes.CARD, cardSource, collect),
+  connect(
+    () => ({}),
+    {
+      ...GameActions,
+    }
+  )
+)(Card)
