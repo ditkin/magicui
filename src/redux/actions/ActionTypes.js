@@ -19,4 +19,6 @@ export default keyMirror({
   TO_FIELD: null,
   TO_HAND: null,
   TO_GRAVE: null,
+
+  TARGET_CARD: null,
 })
