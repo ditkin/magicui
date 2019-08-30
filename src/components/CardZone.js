@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
@@ -17,7 +16,9 @@ const CardZone = ({ id, me, area, cards, classes }) => {
 
   return (
     <Zone classes={zoneClasses} id={id} me={me} area={area}>
-      {cards.size > 0 &&
+      {cards.size === 0 ? (
+        <PlaceholderCard />
+      ) : (
         cards.map((card, index) => (
           <Card
             key={`${card.name}${index}`}
@@ -28,7 +29,8 @@ const CardZone = ({ id, me, area, cards, classes }) => {
             card={card}
             turnable={turnable}
           />
-        ))}
+        ))
+      )}
     </Zone>
   )
 }
