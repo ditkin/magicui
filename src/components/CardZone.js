@@ -17,9 +17,7 @@ const CardZone = ({ id, me, area, cards, classes }) => {
 
   return (
     <Zone classes={zoneClasses} id={id} me={me} area={area}>
-      {cards.size === 0 ? (
-        <PlaceholderCard />
-      ) : (
+      {cards.size > 0 &&
         cards.map((card, index) => (
           <Card
             key={`${card.name}${index}`}
@@ -30,8 +28,7 @@ const CardZone = ({ id, me, area, cards, classes }) => {
             card={card}
             turnable={turnable}
           />
-        ))
-      )}
+        ))}
     </Zone>
   )
 }

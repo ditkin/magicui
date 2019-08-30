@@ -1,5 +1,4 @@
 import Card from '../models/Card'
-// import memoize from 'transmute/memoize'
 
 export const moveFromArea = (area, action) => {
   const cardIndex = area
