@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root'
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -11,10 +11,10 @@ import PlayerContainer from './PlayerContainer'
 
 const Game = ({ updateGameState, game, userId, opponentId }) => {
   return (
-    <div>
+    <Fragment>
       <PlayerContainer id={opponentId} me={false} />
       <PlayerContainer id={userId} me={true} />
-    </div>
+    </Fragment>
   )
 }
 
