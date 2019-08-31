@@ -35,12 +35,11 @@ const Card = ({
   card,
   turnable,
   immobile,
+  targetCard,
 }) => {
   const displayName = card.faceDown ? null : card.name
 
   const [sideways, setSideways] = useState(false)
-
-  const [targeted, setTargeted] = useState(false)
 
   const handleClick = useCallback(() => {
     const manipulable = me && turnable
@@ -48,16 +47,16 @@ const Card = ({
       setSideways(!sideways)
     }
     if (!me) {
-      setTargeted(true)
+      targetCard({ id, card, area })
     }
-  }, [setTargeted, sideways, setSideways])
+  }, [sideways, setSideways])
 
   const classes = classNames('card', {
     upsideDown: !me,
     faceDown: card.faceDown,
     sideways,
     isDragging,
-    targeted,
+    targeted: card.targeted,
   })
 
   return connectDragSource(

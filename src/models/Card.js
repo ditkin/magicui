@@ -6,6 +6,7 @@ const defaults = {
   targeted: false,
   name: '',
   imageSource: '',
+  uuid: null,
 }
 
 export default class Card extends Record(defaults) {

@@ -61,7 +61,7 @@
   text-align: center;
 }
 .card.targeted {
-  border: 2px solid blue;
+  border: 3px solid cyan;
 }
 
 .zone.grave {
