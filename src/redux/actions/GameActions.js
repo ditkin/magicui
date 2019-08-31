@@ -68,3 +68,6 @@ export function moveCard(id, card, areaFrom, areaTo, zone) {
     dispatch(moveTo(areaTo))
   }
 }
+export function targetCard({ id, card, area }) {
+  return dispatch => dispatch({ type: ActionTypes.TARGET_CARD, id, card, area })
+}

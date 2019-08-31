@@ -18,8 +18,6 @@ export default CreateReactClass({
     me: PropTypes.bool.isRequired,
     area: PropTypes.string.isRequired,
     cards: PropTypes.instanceOf(List).isRequired,
-    moveCardFrom: PropTypes.func.isRequired,
-    moveCardTo: PropTypes.func.isRequired,
     onDrag: PropTypes.func,
     classes: PropTypes.string,
   },
@@ -37,17 +35,11 @@ export default CreateReactClass({
         area={area}
         card={card}
         turnable={turnable}
-        moveCardFrom={moveCardFrom}
-        moveCardTo={moveCardTo}
         onDrag={onDrag}
       />
     ))
 
-    return (
-      <UIFlex direction="column">
-        {columnContents}
-      </UIFlex>
-    )
+    return <UIFlex direction="column">{columnContents}</UIFlex>
   },
 
   groupIntoColumns(columnHeight, cards) {
@@ -60,19 +52,15 @@ export default CreateReactClass({
     const groupedCards = this.groupIntoColumns(6, cards).toList()
     const cardColumns = groupedCards.map(this.renderColumnContents)
 
-    return <UIFlex marginTop={5} align="start">{cardColumns}</UIFlex>
+    return (
+      <UIFlex marginTop={5} align="start">
+        {cardColumns}
+      </UIFlex>
+    )
   },
 
   render() {
-    const {
-      classes,
-      id,
-      me,
-      area,
-      moveCardFrom,
-      moveCardTo,
-      onDrag,
-    } = this.props
+    const { classes, id, me, area, onDrag } = this.props
 
     const zoneClasses = classes || classNames(area)
 
@@ -82,9 +70,8 @@ export default CreateReactClass({
         id={id}
         me={me}
         area={area}
-        moveCardFrom={moveCardFrom}
-        moveCardTo={moveCardTo}
         onDrag={onDrag}
+        // moveCardFrom={() => {}}
       >
         {this.renderCardColumns()}
       </Zone>

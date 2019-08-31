@@ -1,92 +1,103 @@
 .player {
-	max-width: 900px;
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	justify-content: space-around;
-	border: 2px solid black;
-	border-radius: 3px;
-	margin: 5px;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 2px solid black;
+  border-radius: 3px;
+  margin: 5px;
 }
 
 .player.me {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 .player.collapsed-cards {
-	width: 100px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.field, .hand {
-	max-width: 800px;
-	border: 1px solid green;
-	border-radius: 2px;
-	display: flex;
-	flex-flow: row wrap;
-	margin: 5px;
+.field,
+.hand {
+  max-width: 800px;
+  border: 1px solid green;
+  border-radius: 2px;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 5px;
 }
 
 .card {
-	height: 70px;
-	width: 55px;
-	margin: 5px 10px 5px 10px;
-	text-align: center;
-	border: 2px solid gray;
-	border-radius: 3px;
-	font-size: 8px;
-	overflow: scroll;
+  height: 70px;
+  width: 55px;
+  margin: 5px 10px 5px 10px;
+  text-align: center;
+  border: 2px solid gray;
+  border-radius: 3px;
+  font-size: 8px;
+  overflow: hidden;
 }
 
 .card.isDragging {
-	opacity: 0.5;
-	cursor: move;
+  opacity: 0.5;
+  cursor: move;
 }
 
 .card.upsideDown {
-	transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .card.faceDown {
-	background: brown;
+  background: brown;
+}
+.card.faceDown:after {
+  content: ' \00D7';
+  font-size: 50px;
+  color: #fff;
+  line-height: 60px;
+  text-align: center;
+}
+.card.targeted {
+  border: 3px solid cyan;
 }
 
 .zone.grave {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	width: 80px;
-	border: 3px solid red;
-	border-radius: 2px;
-	margin: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80px;
+  border: 3px solid red;
+  border-radius: 2px;
+  margin: 5px;
 }
 
 .zone.deck {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	width: 80px;
-	border: 3px solid black;
-	border-radius: 2px;
-	margin: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80px;
+  border: 3px solid black;
+  border-radius: 2px;
+  margin: 5px;
 }
 
 .deckList {
-	margin-left: 10px;
+  margin-left: 10px;
 }
 
 .grave.upsideDown {
-	transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .zone {
-	border: 1px solid gray;
-	border-radius: 3px;
+  border: 1px solid gray;
+  border-radius: 3px;
 }
 
 .zone.isOver {
-	background: yellow;
-	opacity: 0.5;
+  background: yellow;
+  opacity: 0.5;
 }

@@ -1,6 +1,6 @@
 import Card from '../models/Card'
-import memoize from '@hs/transmute/memoize'
 
+// these functions are abstracted to work for each of the 4 areas
 export const moveFromArea = (area, action) => {
   const cardIndex = area
     .get(action.payload.id)
@@ -14,6 +14,27 @@ export const moveToArea = (areas, action) => {
   )
 }
 
-export const isTurnable = memoize((me, area) => {
+export const targetCard = area => (areas, action) => {
+  const isAreaTargeted = area === action.area
+  // if someone targets a card in opponent's hand, un-target all cards
+  // in opponent's non-hand areas
+  if (!isAreaTargeted) {
+    return areas.update(action.id, untargetedArea =>
+      untargetedArea.map(card => card.set('targeted', false))
+    )
+  }
+  // if someone targets a card in opponent's hand, un-target all cards
+  // in opponent's hand then target the card in their hand
+  return areas.update(action.id, targetedArea => {
+    const matchedCardIndex = targetedArea.findIndex(
+      card => action.card.name === card.name
+    )
+    return targetedArea
+      .map(card => card.set('targeted', false))
+      .update(matchedCardIndex, card => card.set('targeted', true))
+  })
+}
+
+export const isTurnable = (me, area) => {
   return area === 'hand' ? false : me
-})
+}

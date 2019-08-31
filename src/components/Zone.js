@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
@@ -9,15 +8,18 @@ import { DropTarget } from 'react-dnd'
 
 import CardModel from '../models/Card'
 import Card from './Card'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
+import * as GameActions from '../redux/actions/GameActions'
 
 const zoneTarget = {
-  drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
-    const { area: fromArea, card: cardData } = monitor.getItem()
+  drop({ moveCardTo, moveCardFrom, area, id: toId, zoneNumber }, monitor) {
+    const { area: fromArea, card: cardData, id: fromId } = monitor.getItem()
     const card = cardData.set('faceDown', false)
 
     if (fromArea && area) {
-      moveCardFrom(fromArea, { id, card })
-      moveCardTo(area, { id, card, zoneNumber })
+      moveCardFrom(fromArea, { id: fromId, card })
+      moveCardTo(area, { id: toId, card, zoneNumber })
     }
   },
 }
@@ -27,34 +29,40 @@ const collect = (connect, monitor) => ({
   isOver: monitor.isOver(),
 })
 
-const Zone = CreateReactClass({
-  propTypes: {
-    connectDropTarget: PropTypes.func.isRequired,
-    isOver: PropTypes.bool.isRequired,
-    zoneNumber: PropTypes.number.isRequired,
-    area: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    me: PropTypes.bool.isRequired,
-    moveCardFrom: PropTypes.func.isRequired,
-    moveCardTo: PropTypes.func.isRequired,
-  },
+const Zone = ({
+  connectDropTarget,
+  isOver,
+  zoneNumber,
+  area,
+  id,
+  me,
+  moveCardFrom,
+  moveCardTo,
+  children,
+  classes,
+}) => {
+  const zoneClasses = classNames(`${classes} zone`, { me, isOver })
 
-  render() {
-    const {
-      connectDropTarget,
-      isOver,
-      children,
-      id,
-      me,
-      area,
-      moveCardFrom,
-      classes,
-    } = this.props
+  return connectDropTarget(<div className={zoneClasses}>{children}</div>)
+}
 
-    const zoneClasses = classNames(`${classes} zone`, { me, isOver })
+Zone.propTypes = {
+  connectDropTarget: PropTypes.func.isRequired,
+  isOver: PropTypes.bool.isRequired,
+  zoneNumber: PropTypes.number.isRequired,
+  area: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  me: PropTypes.bool.isRequired,
+  moveCardFrom: PropTypes.func.isRequired,
+  moveCardTo: PropTypes.func.isRequired,
+}
 
-    return connectDropTarget(<div className={zoneClasses}>{children}</div>)
-  },
-})
-
-export default DropTarget(ItemTypes.CARD, zoneTarget, collect)(Zone)
+export default compose(
+  connect(
+    () => ({}),
+    {
+      ...GameActions,
+    }
+  ),
+  DropTarget(ItemTypes.CARD, zoneTarget, collect)
+)(Zone)

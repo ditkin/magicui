@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
-import CreateReactClass from 'create-react-class'
 import classNames from 'classnames'
 import { ItemTypes } from '../constants'
 import { DragSource } from 'react-dnd'
 
 import CardModel from '../models/Card'
+import { compose } from 'redux'
+import { connect as reduxConnect } from 'react-redux'
+import * as GameActions from '../redux/actions/GameActions'
 
 const cardSource = {
-  beginDrag({ area, onDrag, card }) {
+  beginDrag({ area, onDrag, card, id }) {
     onDrag && onDrag()
 
-    return { area, card }
+    return { area, card, id }
   },
 
   canDrag({ immobile, me }) {
@@ -24,59 +26,60 @@ const collect = (connect, monitor) => ({
   isDragging: monitor.isDragging(),
 })
 
-const Card = CreateReactClass({
-  propTypes: {
-    connectDragSource: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired,
-    area: PropTypes.string.isRequired,
-    me: PropTypes.bool.isRequired,
-    id: PropTypes.number,
-    card: PropTypes.instanceOf(CardModel).isRequired,
-    turnable: PropTypes.bool,
-    immobile: PropTypes.bool,
-  },
+const Card = ({
+  connectDragSource,
+  isDragging,
+  area,
+  me,
+  id,
+  card,
+  turnable,
+  immobile,
+  targetCard,
+}) => {
+  const displayName = card.faceDown ? null : card.name
 
-  getInitialState() {
-    return {
-      sideways: false,
+  const [sideways, setSideways] = useState(false)
+
+  const handleClick = useCallback(() => {
+    const manipulable = me && turnable
+    if (manipulable) {
+      setSideways(!sideways)
     }
-  },
+    if (!me) {
+      targetCard({ id, card, area })
+    }
+  }, [sideways, setSideways])
 
-  handleClick() {
-    this.setState((state, { me, turnable }) => {
-      const manipulable = me && turnable
-      if (manipulable) {
-        return { sideways: !state.sideways }
-      }
-      if (me) {
-        return null
-      }
+  const classes = classNames('card', {
+    upsideDown: !me,
+    faceDown: card.faceDown,
+    sideways,
+    isDragging,
+    targeted: card.targeted,
+  })
 
-      return { targeted: true }
-    })
-  },
+  return connectDragSource(
+    <div className={classes} onClick={handleClick}>
+      {displayName}
+    </div>
+  )
+}
 
-  getDisplayName({ faceDown, name }) {
-    return faceDown ? null : name
-  },
+Card.propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  area: PropTypes.string.isRequired,
+  me: PropTypes.bool.isRequired,
+  id: PropTypes.number,
+  card: PropTypes.instanceOf(CardModel).isRequired,
+  turnable: PropTypes.bool,
+  immobile: PropTypes.bool,
+}
 
-  render() {
-    const { sideways } = this.state
-    const { connectDragSource, isDragging, me, card } = this.props
-
-    const classes = classNames('card', {
-      upsideDown: !me,
-      faceDown: card.faceDown,
-      sideways,
-      isDragging,
-    })
-
-    return connectDragSource(
-      <div className={classes} onClick={this.handleClick}>
-        {this.getDisplayName(card)}
-      </div>
-    )
-  },
-})
-
-export default DragSource(ItemTypes.CARD, cardSource, collect)(Card)
+export default compose(
+  reduxConnect(() => ({}), {
+    ...GameActions,
+  }),
+  DragSource(ItemTypes.CARD, cardSource, collect)
+)(Card)

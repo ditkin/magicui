@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import { connect } from 'react-redux'
 import { List } from 'immutable'
-import isEmpty from '@hs/transmute/isEmpty'
 import * as GameActions from '../redux/actions/GameActions'
 import Field from './Field'
 import Hand from './Hand'
@@ -36,8 +35,9 @@ const Player = CreateReactClass({
       moveCardFrom,
       moveCardTo,
     } = this.props
+    const hasId = id !== undefined
     // This container should only display once there are cards
-    if (!id || !deck) {
+    if (!hasId || !deck) {
       return null
     }
 
