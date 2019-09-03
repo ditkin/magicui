@@ -4,20 +4,20 @@ import { compose, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import reducer from './redux/reducers/root'
-import GameContainer from './components/GameContainer'
+import IndexContainer from './components/IndexContainer'
 import GameMiddleware from './middleware/GameMiddleware'
-import setupSocket from './sockets'
+import { initSocket } from './sockets'
 import './styles/index.css'
 import './styles/field.css'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
-window.crazySocket = setupSocket(store.dispatch)
+initSocket(store.dispatch)
 
 render(
   <Provider store={store}>
-    <GameContainer />
+    <IndexContainer />
   </Provider>,
   document.getElementById('root')
 )
