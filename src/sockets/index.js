@@ -1,6 +1,11 @@
 import ActionTypes from '../redux/actions/ActionTypes'
 import { receiveGameUpdate } from '../redux/actions/GameActions'
-import { selfAwaken, challengerAppears } from '../redux/actions/RoomActions'
+import {
+  selfAwaken,
+  challengerAppears,
+  setRooms,
+  roomJoined,
+} from '../redux/actions/RoomActions'
 
 let _socket
 let _dispatch
@@ -13,21 +18,26 @@ export function initSocket(dispatch) {
   _socket.onopen = () => {
     _socket.send(
       JSON.stringify({
-        type: ActionTypes.JOIN_GAME,
+        type: ActionTypes.REGISTER,
       })
     )
   }
   _socket.onmessage = event => {
     const data = JSON.parse(event.data)
+    // v2
     switch (data.type) {
       case ActionTypes.GAME_UPDATED:
         dispatch(receiveGameUpdate(data))
         break
       // these actions have not been made yet. the BE now
       // sends messages like these. lets set IDs (opponent on GAME START)
-      case 'WAITING_ROOM':
+      case 'REGISTERED':
         // alert(`found first user (id: ${data.id})`)
         dispatch(selfAwaken(data.user.id))
+        dispatch(setRooms(data.rooms))
+        break
+      case 'ROOM_JOINED':
+        dispatch(roomJoined(data.room))
         break
       case 'GAME_START':
         // alert(`found opponent (id: ${data.opponent.id})`)
@@ -39,6 +49,28 @@ export function initSocket(dispatch) {
       default:
         console.log('message')
     }
+
+    // v1
+    // switch (data.type) {
+    //   case ActionTypes.GAME_UPDATED:
+    //     dispatch(receiveGameUpdate(data))
+    //     break
+    //   // these actions have not been made yet. the BE now
+    //   // sends messages like these. lets set IDs (opponent on GAME START)
+    //   case 'WAITING_ROOM':
+    //     // alert(`found first user (id: ${data.id})`)
+    //     dispatch(selfAwaken(data.user.id))
+    //     break
+    //   case 'GAME_START':
+    //     // alert(`found opponent (id: ${data.opponent.id})`)
+    //     dispatch(challengerAppears(data.opponent.id))
+    //     break
+    //   case 'OPPONENT_DISCONNECTED':
+    //   //temporary suspend  & wait
+    //   case 'MESSAGE':
+    //   default:
+    //     console.log('message')
+    // }
   }
 }
 

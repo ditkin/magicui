@@ -1,8 +1,17 @@
 import keyMirror from 'keymirror'
 
 export default keyMirror({
+  // sockets
   CREATE_GAME: null,
   JOIN_GAME: null,
+  // sockets v2
+  SET_ROOMS: null,
+  CREATE_ROOM: null,
+  ROOM_CREATED: null,
+  JOIN_ROOM: null,
+  ROOM_JOINED: null,
+  REGISTER: null,
+
   SET_USER_ID: null,
   SET_OPPONENT_ID: null,
 
