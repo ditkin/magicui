@@ -9,6 +9,12 @@ export const joinRoom = room => {
     room,
   }
 }
+export const roomCreated = room => {
+  return {
+    type: ActionTypes.ROOM_CREATED,
+    room,
+  }
+}
 
 export const roomJoined = createAction(ActionTypes.ROOM_JOINED)
 

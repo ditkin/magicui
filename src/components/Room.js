@@ -5,10 +5,11 @@ import RoomModel from '../models/Room'
 import { connect } from 'react-redux'
 import { joinRoom } from '../redux/actions/RoomActions'
 import { sendMessage } from '../sockets'
+import RoomElement from './styled/RoomElement'
 
 const Room = ({ room }) => {
   const full = room.player_ids.size === room.max_capacity
-  const classes = classNames('room', {
+  const classes = classNames({
     full,
   })
 
@@ -21,9 +22,10 @@ const Room = ({ room }) => {
   }
 
   return (
-    <div className={classes} onClick={handleClick}>
+    <RoomElement className={classes} onClick={handleClick}>
+      {full ? '[FULL]' : null}
       {room.name}
-    </div>
+    </RoomElement>
   )
 }
 

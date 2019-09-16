@@ -5,6 +5,7 @@ import {
   challengerAppears,
   setRooms,
   roomJoined,
+  roomCreated,
 } from '../redux/actions/RoomActions'
 
 let _socket
@@ -38,6 +39,9 @@ export function initSocket(dispatch) {
         break
       case 'ROOM_JOINED':
         dispatch(roomJoined(data.room))
+        break
+      case ActionTypes.ROOM_CREATED:
+        dispatch(roomCreated(data.room))
         break
       case 'GAME_START':
         // alert(`found opponent (id: ${data.opponent.id})`)

@@ -7,10 +7,12 @@ import * as GameActions from '../redux/actions/GameActions'
 import PlayerContainer from './PlayerContainer'
 import UIFlex from './UIFlex'
 import Room from './Room'
+import CreateRoom from './CreateRoom'
 
 const WaitingRoom = ({ rooms, userId, opponentId }) => {
   const groupedRooms = rooms
     .map(room => <Room room={room} />)
+    .push(<CreateRoom />)
     .groupBy((_room, index) => Math.floor(index / 6))
     .toList()
   return (

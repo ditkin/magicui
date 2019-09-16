@@ -1,38 +1,25 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
-import RoomModel from '../../models/Room'
 import { connect } from 'react-redux'
 import { joinRoom } from '../redux/actions/RoomActions'
+import Modal from 'react-modal'
+import RoomElement from './styled/RoomElement'
+import { sendMessage } from '../sockets'
+import * as RoomActions from '../redux/actions/RoomActions'
+import CreateRoomPrompt from './CreateRoomPrompt'
+import { compose } from 'redux'
+import withModal from '../hocs/withModal'
 
-const CreateRoom = ({ room }) => {
-  const full = room.player_ids.size === room.max_capacity
-  const classes = classNames('room', {
-    full,
-  })
+const CreateRoom = ({ openModal }) => {
+  return <RoomElement onClick={openModal}>{'+'}</RoomElement>
+}
 
-  const handleClick = () => {
-    if (full) {
-      console.log('room is full')
-      return
+export default compose(
+  withModal(CreateRoomPrompt),
+  connect(
+    () => ({}),
+    {
+      ...RoomActions,
     }
-    sendMessage(joinRoom(room.toJS()))
-  }
-
-  return (
-    <div className={classes} onClick={handleClick}>
-      {displayName}
-    </div>
   )
-}
-
-CreateRoom.propTypes = {
-  room: PropTypes.instanceOf(Room),
-}
-
-export default connect(
-  () => ({}),
-  {
-    ...RoomActions,
-  }
 )(CreateRoom)
