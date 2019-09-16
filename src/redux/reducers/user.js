@@ -6,7 +6,7 @@ const initialState = {}
 export default handleActions(
   {
     [ActionTypes.SET_USER_ID](user, action) {
-      return { id: action.id }
+      return { id: action.payload }
     },
   },
   initialState

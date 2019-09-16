@@ -3,27 +3,12 @@ import { createAction } from 'redux-actions'
 
 export const setRooms = createAction(ActionTypes.SET_ROOMS)
 
-export const joinRoom = room => {
-  return {
-    type: ActionTypes.JOIN_ROOM,
-    room,
-  }
-}
-export const roomCreated = room => {
-  return {
-    type: ActionTypes.ROOM_CREATED,
-    room,
-  }
-}
+export const joinRoom = createAction(ActionTypes.JOIN_ROOM)
+
+export const roomCreated = createAction(ActionTypes.ROOM_CREATED)
 
 export const roomJoined = createAction(ActionTypes.ROOM_JOINED)
 
-export const selfAwaken = id => ({
-  type: ActionTypes.SET_USER_ID,
-  id,
-})
+export const selfAwaken = createAction(ActionTypes.SET_USER_ID)
 
-export const challengerAppears = id => ({
-  type: ActionTypes.SET_OPPONENT_ID,
-  id,
-})
+export const challengerAppears = createAction(ActionTypes.SET_OPPONENT_ID)

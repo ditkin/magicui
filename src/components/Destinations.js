@@ -46,7 +46,9 @@ const Destinations = ({
 }
 export default withModal(
   connect(
-    () => ({}),
+    (state, { id, area }) => ({
+      cards: state[`${area}s`].get(id),
+    }),
     {
       ...GameActions,
     }

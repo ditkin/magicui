@@ -15,6 +15,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import * as GameActions from '../redux/actions/GameActions'
 import Destinations from './Destinations'
+import withModal from '../hocs/withModal'
 
 const zoneTarget = {
   drop({ moveCardTo, moveCardFrom, area, id, zoneNumber }, monitor) {
@@ -66,6 +67,7 @@ const StackZone = CreateReactClass({
 
   render() {
     const {
+      openModal,
       connectDropTarget,
       isOver,
       area,
@@ -80,7 +82,7 @@ const StackZone = CreateReactClass({
     return connectDropTarget(
       <div
         className={classes}
-        onClick={() => Destinations({ destinations, me, id, cards, area })}
+        onClick={() => openModal({ destinations, me, id, area })}
       >
         {this.renderModal()}
       </div>
@@ -89,6 +91,7 @@ const StackZone = CreateReactClass({
 })
 
 export default compose(
+  withModal(Destinations),
   connect(
     () => ({}),
     {
