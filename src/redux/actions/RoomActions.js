@@ -1,11 +1,16 @@
 import ActionTypes from './ActionTypes'
 import { createAction } from 'redux-actions'
 
-export const setRooms = createAction(ActionTypes.SET_ROOMS)
+export const roomsUpdated = createAction(ActionTypes.ROOMS_UPDATED)
 
-export const joinRoom = createAction(ActionTypes.JOIN_ROOM)
+export const joinRoom = room => ({
+  type: ActionTypes.JOIN_ROOM,
+  ...room,
+})
 
-export const roomCreated = createAction(ActionTypes.ROOM_CREATED)
+export const leaveRoom = createAction(ActionTypes.LEAVE_ROOM)
+
+export const roomLeft = createAction(ActionTypes.ROOM_LEFT)
 
 export const roomJoined = createAction(ActionTypes.ROOM_JOINED)
 

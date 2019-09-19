@@ -7,6 +7,9 @@ import * as RoomActions from '../redux/actions/RoomActions'
 import { compose } from 'redux'
 import withModal from '../hocs/withModal'
 import ActionTypes from '../redux/actions/ActionTypes'
+import ButtonElement from './styled/ButtonElement'
+import InputElement from './styled/InputElement'
+import SelectElement from './styled/SelectElement'
 
 const { CREATE_ROOM } = ActionTypes
 
@@ -21,35 +24,48 @@ const CreateRoomForm = ({}) => {
 
   return (
     <Fragment>
-      <label for="name">Room Name</label>
-      <input
+      <label style={{ marginBottom: 8 }} for="name">
+        Room Name
+      </label>
+      <br />
+      <InputElement
+        style={{ marginBottom: 16 }}
         type="text"
         id="name"
         value={name}
         onChange={({ target: { value } }) => setName(value)}
       />
       <br />
-      <label for="game">Game</label>
-      <select
+      <label style={{ marginBottom: 8 }} for="game">
+        Game
+      </label>
+      <br />
+      <SelectElement
+        style={{ marginBottom: 16 }}
         id="game"
         value={game}
         onChange={({ target: { value } }) => setGame(value)}
       >
         <option value="mons">Mons</option>
-      </select>
+      </SelectElement>
       <br />
       {game !== 'mons' && (
         <Fragment>
-          <label for="maxPlayers">Max players</label>
-          <input
+          <label style={{ marginBottom: 8 }} for="maxPlayers">
+            Max players
+          </label>
+          <br />
+          <InputElement
+            style={{ marginBottom: 16 }}
             type="number"
             id="maxPlayers"
             value={maxPlayers}
             onChange={({ target: { value } }) => setMaxPlayers(value)}
           />
+          <br />
         </Fragment>
       )}
-      <button onClick={handleSubmit}>Create</button>
+      <ButtonElement onClick={handleSubmit}>Create</ButtonElement>
     </Fragment>
   )
 }

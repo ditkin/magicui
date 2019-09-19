@@ -6,7 +6,7 @@ import Modal from 'react-modal'
 import RoomElement from './styled/RoomElement'
 import { sendMessage } from '../sockets'
 import * as RoomActions from '../redux/actions/RoomActions'
-import CreateRoomPrompt from './CreateRoomPrompt'
+import CreateRoomForm from './CreateRoomForm'
 import { compose } from 'redux'
 import withModal from '../hocs/withModal'
 
@@ -15,7 +15,7 @@ const CreateRoom = ({ openModal }) => {
 }
 
 export default compose(
-  withModal(CreateRoomPrompt),
+  withModal(CreateRoomForm),
   connect(
     () => ({}),
     {

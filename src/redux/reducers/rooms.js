@@ -5,9 +5,8 @@ import Room from '../../models/Room'
 
 export default handleActions(
   {
-    [ActionTypes.SET_ROOMS]: (rooms, action) => List(action.payload),
-    [ActionTypes.ROOM_CREATED]: (rooms, action) =>
-      rooms.push(Room.from(action.payload)),
+    [ActionTypes.ROOMS_UPDATED]: (rooms, action) =>
+      List(action.payload).map(Room.from),
   },
   List()
 )

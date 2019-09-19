@@ -5,11 +5,12 @@ export default keyMirror({
   CREATE_GAME: null,
   JOIN_GAME: null,
   // sockets v2
-  SET_ROOMS: null,
+  ROOMS_UPDATED: null,
   CREATE_ROOM: null,
-  ROOM_CREATED: null,
   JOIN_ROOM: null,
   ROOM_JOINED: null,
+  LEAVE_ROOM: null,
+  ROOM_LEFT: null,
   REGISTER: null,
 
   SET_USER_ID: null,

@@ -8,7 +8,7 @@ import { sendMessage } from '../sockets'
 import RoomElement from './styled/RoomElement'
 
 const Room = ({ room }) => {
-  const full = room.player_ids.size === room.max_capacity
+  const full = room.player_ids.length === room.max_players
   const classes = classNames({
     full,
   })

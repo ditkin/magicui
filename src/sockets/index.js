@@ -3,9 +3,10 @@ import { receiveGameUpdate } from '../redux/actions/GameActions'
 import {
   selfAwaken,
   challengerAppears,
-  setRooms,
   roomJoined,
   roomCreated,
+  roomLeft,
+  roomsUpdated,
 } from '../redux/actions/RoomActions'
 
 let _socket
@@ -35,13 +36,16 @@ export function initSocket(dispatch) {
       case 'REGISTERED':
         // alert(`found first user (id: ${data.id})`)
         dispatch(selfAwaken(data.user.id))
-        dispatch(setRooms(data.rooms))
+        dispatch(roomsUpdated(data.rooms))
+        break
+      case ActionTypes.ROOM_LEFT:
+        dispatch(roomLeft())
+        break
+      case ActionTypes.ROOMS_UPDATED:
+        dispatch(roomsUpdated(data.rooms))
         break
       case 'ROOM_JOINED':
         dispatch(roomJoined(data.room))
-        break
-      case ActionTypes.ROOM_CREATED:
-        dispatch(roomCreated(data.room))
         break
       case 'GAME_START':
         // alert(`found opponent (id: ${data.opponent.id})`)

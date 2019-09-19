@@ -4,27 +4,14 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import * as RoomActions from '../redux/actions/RoomActions'
 import * as GameActions from '../redux/actions/GameActions'
-import PlayerContainer from './PlayerContainer'
-import UIFlex from './UIFlex'
-import Room from './Room'
-import CreateRoom from './CreateRoom'
+import RoomSelection from './RoomSelection'
+import WaitingRoom from './WaitingRoom'
 
-const WaitingRoom = ({ rooms, userId, opponentId }) => {
-  const groupedRooms = rooms
-    .map(room => <Room room={room} />)
-    .push(<CreateRoom />)
-    .groupBy((_room, index) => Math.floor(index / 6))
-    .toList()
-  return (
-    <UIFlex align="start">
-      {groupedRooms.map(column => (
-        <UIFlex direction="column">{column}</UIFlex>
-      ))}
-    </UIFlex>
-  )
+const WaitingRoomContainer = ({ isInRoom, rooms, userId, opponentId }) => {
+  return isInRoom ? <WaitingRoom /> : <RoomSelection />
 }
 
-WaitingRoom.propTypes = {
+WaitingRoomContainer.propTypes = {
   userId: PropTypes.number.isRequired,
   opponentId: PropTypes.number.isRequired,
 }
@@ -33,11 +20,11 @@ export default compose(
   connect(
     state => ({
       userId: state.user.id,
-      rooms: state.rooms,
+      isInRoom: state.room.uuid !== undefined,
     }),
     {
       ...GameActions,
       ...RoomActions,
     }
   )
-)(WaitingRoom)
+)(WaitingRoomContainer)
