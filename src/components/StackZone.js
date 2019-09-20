@@ -84,7 +84,7 @@ const StackZone = CreateReactClass({
         className={classes}
         onClick={() => openModal({ destinations, me, id, area })}
       >
-        {this.renderModal()}
+        {this.renderVisibleCard()}
       </div>
     )
   },

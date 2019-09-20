@@ -2,8 +2,6 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { DragDropContext } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 import * as RoomActions from '../redux/actions/RoomActions'
 import * as GameActions from '../redux/actions/GameActions'
 import PlayerContainer from './PlayerContainer'
@@ -23,7 +21,6 @@ Game.propTypes = {
 }
 
 export default compose(
-  DragDropContext(HTML5Backend),
   connect(
     state => ({
       userId: state.user.id,

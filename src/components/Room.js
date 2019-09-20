@@ -23,7 +23,7 @@ const Room = ({ room }) => {
 
   return (
     <RoomElement className={classes} onClick={handleClick}>
-      {full ? '[FULL]' : null}
+      {full ? '[FULL]' : `[${room.player_ids.length}/${room.max_players}]`}
       {room.name}
     </RoomElement>
   )

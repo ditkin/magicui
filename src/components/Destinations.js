@@ -4,7 +4,6 @@ import Zone from './Zone'
 import UIFlex from './UIFlex'
 import * as GameActions from '../redux/actions/GameActions'
 
-import withModal from '../hocs/withModal'
 import { connect } from 'react-redux'
 
 const Destinations = ({
@@ -14,7 +13,7 @@ const Destinations = ({
   cards,
   area,
   moveCardFrom,
-  moveCardTo,
+  moveCardTo
 }) => {
   return (
     <UIFlex align="start">
@@ -44,13 +43,11 @@ const Destinations = ({
     </UIFlex>
   )
 }
-export default withModal(
-  connect(
-    (state, { id, area }) => ({
-      cards: state[`${area}s`].get(id),
-    }),
-    {
-      ...GameActions,
-    }
-  )(Destinations)
-)
+export default connect(
+  (state, { id, area }) => ({
+    cards: state[`${area}s`].get(id),
+  }),
+  {
+    ...GameActions,
+  }
+)(Destinations)
