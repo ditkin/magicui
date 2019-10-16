@@ -49,7 +49,7 @@ export function initSocket(dispatch) {
         break
       case 'GAME_START':
         // alert(`found opponent (id: ${data.opponent.id})`)
-        dispatch(challengerAppears(data.opponent.id))
+        dispatch(challengerAppears(data.opponentId))
         break
       case 'OPPONENT_DISCONNECTED':
       //temporary suspend  & wait
