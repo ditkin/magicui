@@ -36,39 +36,3 @@ export default ModalContents => WrappedComponent => {
 
   return withModal
 }
-
-// 'use es6'
-
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-// import Modal from 'react-modal'
-
-// function doModal(Component, additionalProps, parentComponent) {
-//   const element = document.createElement('div')
-
-//   const promiseCallback = (resolve, reject) => {
-//     const WrappedComponent = (
-//       <Modal isOpen={true}>
-//         <Component {...additionalProps} onConfirm={resolve} onReject={reject} />
-//       </Modal>
-//     )
-
-//     if (parentComponent) {
-//       ReactDOM.unstable_renderSubtreeIntoContainer(
-//         parentComponent,
-//         WrappedComponent,
-//         element
-//       )
-//     } else {
-//       ReactDOM.render(WrappedComponent, element)
-//     }
-//   }
-
-//   return new Promise(promiseCallback).finally(() => {
-//     ReactDOM.unmountComponentAtNode(element)
-//   })
-// }
-
-// export default function withModal(Component) {
-//   return (...args) => doModal(Component, ...args)
-// }
