@@ -24,13 +24,14 @@
     "react-router": "^3.0.0",
     "redux": "^3.6.0",
     "redux-actions": "*",
-    "redux-thunk": "*",
     "redux-saga": "^0.16.0",
-    "reselect": "*"
+    "redux-thunk": "*",
+    "reselect": "*",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build;rm -rf docs;mv build docs",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

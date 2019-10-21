@@ -2,6 +2,7 @@ import ActionTypes from './ActionTypes'
 import { createAction } from 'redux-actions'
 import { fetchGameMock } from '../../api/gameAPI'
 import { getBoardState } from '../selectors/board'
+import { sendMessage } from '../../sockets'
 
 export const fetchGameRequestSucceeded = createAction(ActionTypes.GAME_UPDATED)
 
@@ -58,7 +59,7 @@ export function moveCardTo(area, ...props) {
     dispatch(moveTo(area)(...props))
 
     const boardState = getBoardState(getState())
-    window.crazySocket.send(JSON.stringify(sendGameUpdate(boardState)))
+    sendMessage(sendGameUpdate(boardState))
   }
 }
 

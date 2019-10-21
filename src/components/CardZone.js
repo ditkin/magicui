@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { List } from 'immutable'
 
-import { ItemTypes } from '../constants'
-
 import Zone from './Zone'
 import Card from './Card'
 import PlaceholderCard from './PlaceholderCard'
