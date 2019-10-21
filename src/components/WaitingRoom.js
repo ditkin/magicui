@@ -3,12 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import * as RoomActions from '../redux/actions/RoomActions'
-import * as GameActions from '../redux/actions/GameActions'
-import PlayerContainer from './PlayerContainer'
-import UIFlex from './UIFlex'
-import Room from './Room'
-import CreateRoom from './CreateRoom'
 import { sendMessage } from '../sockets'
+import RoomModel from '../models/Room'
 
 const WaitingRoom = ({ room }) => {
   const handleLeave = () => sendMessage(RoomActions.leaveRoom())
@@ -20,7 +16,9 @@ const WaitingRoom = ({ room }) => {
   )
 }
 
-WaitingRoom.propTypes = {}
+WaitingRoom.propTypes = {
+  room: PropTypes.instanceOf(RoomModel),
+}
 
 export default compose(
   connect(state => ({

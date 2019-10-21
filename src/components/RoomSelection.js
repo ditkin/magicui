@@ -1,13 +1,11 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import * as RoomActions from '../redux/actions/RoomActions'
-import * as GameActions from '../redux/actions/GameActions'
-import PlayerContainer from './PlayerContainer'
 import UIFlex from './UIFlex'
 import Room from './Room'
 import CreateRoom from './CreateRoom'
+import { List } from 'immutable'
 
 const RoomSelection = ({ rooms }) => {
   const groupedRooms = rooms
@@ -24,7 +22,9 @@ const RoomSelection = ({ rooms }) => {
   )
 }
 
-RoomSelection.propTypes = {}
+RoomSelection.propTypes = {
+  rooms: PropTypes.instanceOf(List),
+}
 
 export default compose(
   connect(state => ({

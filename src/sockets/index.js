@@ -26,13 +26,10 @@ export function initSocket(dispatch) {
   }
   _socket.onmessage = event => {
     const data = JSON.parse(event.data)
-    // v2
     switch (data.type) {
       case ActionTypes.GAME_UPDATED:
         dispatch(receiveGameUpdate(data))
         break
-      // these actions have not been made yet. the BE now
-      // sends messages like these. lets set IDs (opponent on GAME START)
       case 'REGISTERED':
         // alert(`found first user (id: ${data.id})`)
         dispatch(selfAwaken(data.user.id))
@@ -48,74 +45,17 @@ export function initSocket(dispatch) {
         dispatch(roomJoined(data.room))
         break
       case 'GAME_START':
-        // alert(`found opponent (id: ${data.opponent.id})`)
         dispatch(challengerAppears(data.opponentId))
         break
       case 'OPPONENT_DISCONNECTED':
       //temporary suspend  & wait
       case 'MESSAGE':
       default:
-        console.log('message')
+        console.log('message', data)
     }
-
-    // v1
-    // switch (data.type) {
-    //   case ActionTypes.GAME_UPDATED:
-    //     dispatch(receiveGameUpdate(data))
-    //     break
-    //   // these actions have not been made yet. the BE now
-    //   // sends messages like these. lets set IDs (opponent on GAME START)
-    //   case 'WAITING_ROOM':
-    //     // alert(`found first user (id: ${data.id})`)
-    //     dispatch(selfAwaken(data.user.id))
-    //     break
-    //   case 'GAME_START':
-    //     // alert(`found opponent (id: ${data.opponent.id})`)
-    //     dispatch(challengerAppears(data.opponent.id))
-    //     break
-    //   case 'OPPONENT_DISCONNECTED':
-    //   //temporary suspend  & wait
-    //   case 'MESSAGE':
-    //   default:
-    //     console.log('message')
-    // }
   }
 }
 
 export function sendMessage(message) {
   _socket.send(JSON.stringify(message))
 }
-
-// export default dispatch => {
-//   socket.onopen = () => {
-//     socket.send(
-//       JSON.stringify({
-//         type: ActionTypes.JOIN_GAME,
-//       })
-//     )
-//   }
-//   socket.onmessage = event => {
-//     const data = JSON.parse(event.data)
-//     switch (data.type) {
-//       case ActionTypes.GAME_UPDATED:
-//         dispatch(receiveGameUpdate(data))
-//         break
-//       // these actions have not been made yet. the BE now
-//       // sends messages like these. lets set IDs (opponent on GAME START)
-//       case 'WAITING_ROOM':
-//         // alert(`found first user (id: ${data.id})`)
-//         break
-//       case 'GAME_START':
-//         // alert(`found opponent (id: ${data.opponent.id})`)
-//         dispatch(selfAwaken(data.user.id))
-//         dispatch(challengerAppears(data.opponent.id))
-//         break
-//       case 'OPPONENT_DISCONNECTED':
-//       //temporary suspend  & wait
-//       case 'MESSAGE':
-//       default:
-//         console.log('message')
-//     }
-//   }
-//   return socket
-// }

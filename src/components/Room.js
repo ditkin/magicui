@@ -1,8 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import RoomModel from '../models/Room'
-import { connect } from 'react-redux'
 import { joinRoom } from '../redux/actions/RoomActions'
 import { sendMessage } from '../sockets'
 import RoomElement from './styled/RoomElement'
@@ -34,9 +32,3 @@ Room.propTypes = {
 }
 
 export default Room
-// export default connect(
-//   () => ({}),
-//   {
-//     ...RoomActions,
-//   }
-// )(Room)
