@@ -10,12 +10,10 @@ import {
 } from '../redux/actions/RoomActions'
 
 let _socket
-let _dispatch
 
 export function initSocket(dispatch) {
-  // const socket = new WebSocket('ws://agnosticard-api.herokuapp.com/:1234')
-  _socket = new WebSocket('ws://localhost:1234')
-  _dispatch = dispatch
+  _socket = new WebSocket('ws://agnosticard-api.herokuapp.com/:1234')
+  // _socket = new WebSocket('ws://localhost:1234')
 
   _socket.onopen = () => {
     _socket.send(
@@ -31,7 +29,6 @@ export function initSocket(dispatch) {
         dispatch(receiveGameUpdate(data))
         break
       case 'REGISTERED':
-        // alert(`found first user (id: ${data.id})`)
         dispatch(selfAwaken(data.user.id))
         dispatch(roomsUpdated(data.rooms))
         break
