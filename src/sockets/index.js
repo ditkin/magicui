@@ -4,7 +4,6 @@ import {
   selfAwaken,
   challengerAppears,
   roomJoined,
-  roomCreated,
   roomLeft,
   roomsUpdated,
 } from '../redux/actions/RoomActions'
@@ -12,7 +11,7 @@ import {
 let _socket
 
 export function initSocket(dispatch) {
-  _socket = new WebSocket('ws://agnosticard-api.herokuapp.com/:1234')
+  _socket = new WebSocket('ws://agnosticard-api.herokuapp.com')
   // _socket = new WebSocket('ws://localhost:1234')
 
   _socket.onopen = () => {
