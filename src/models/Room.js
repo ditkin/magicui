@@ -7,6 +7,7 @@ const defaults = {
   max_players: 2,
   player_ids: [],
   board: null,
+  chat: [],
 }
 
 export default class Room extends Record(defaults) {

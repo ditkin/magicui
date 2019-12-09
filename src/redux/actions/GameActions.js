@@ -4,6 +4,15 @@ import { fetchGameMock } from '../../api/gameAPI'
 import { getBoardState } from '../selectors/board'
 import { sendMessage } from '../../sockets'
 
+export function sendChat(chat) {
+  return {
+    type: ActionTypes.SEND_CHAT,
+    chat,
+  }
+}
+
+export const chatSent = createAction(ActionTypes.CHAT_SENT)
+
 export const fetchGameRequestSucceeded = createAction(ActionTypes.GAME_UPDATED)
 
 export const fetchGameRequestFailed = createAction(

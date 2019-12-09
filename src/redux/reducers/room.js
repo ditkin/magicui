@@ -4,13 +4,10 @@ import Room from '../../models/Room'
 
 export default handleActions(
   {
-    [ActionTypes.CREATE_GAME]: () => {},
-    [ActionTypes.JOIN_GAME]: () => {},
-    [ActionTypes.ROOM_LEFT]: () => ({}),
+    [ActionTypes.CHAT_SENT]: (state, { payload: chat }) =>
+      state.set('chat', chat),
+    [ActionTypes.ROOM_LEFT]: () => new Room(),
     [ActionTypes.ROOM_JOINED]: (_, action) => Room.from(action.payload),
-    [ActionTypes.START_GAME]: () => {
-      opponentId: 456
-    },
   },
-  {}
+  new Room()
 )

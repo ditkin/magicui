@@ -1,5 +1,5 @@
 import ActionTypes from '../redux/actions/ActionTypes'
-import { receiveGameUpdate } from '../redux/actions/GameActions'
+import { receiveGameUpdate, chatSent } from '../redux/actions/GameActions'
 import {
   selfAwaken,
   challengerAppears,
@@ -10,9 +10,16 @@ import {
 
 let _socket
 
+const LOCAL_SOCKET_URL = 'ws://localhost:1234'
+const PROD_SOCKET_URL = 'ws://agnosticard-api.herokuapp.com'
+
+function getSocketUrl() {
+  const isLocal = window.location.href.includes('localhost')
+  return isLocal ? LOCAL_SOCKET_URL : PROD_SOCKET_URL
+}
+
 export function initSocket(dispatch) {
-  _socket = new WebSocket('ws://agnosticard-api.herokuapp.com')
-  // _socket = new WebSocket('ws://localhost:1234')
+  _socket = new WebSocket(getSocketUrl())
 
   _socket.onopen = () => {
     _socket.send(
@@ -27,7 +34,10 @@ export function initSocket(dispatch) {
       case ActionTypes.GAME_UPDATED:
         dispatch(receiveGameUpdate(data))
         break
-      case 'REGISTERED':
+      case ActionTypes.CHAT_SENT:
+        dispatch(chatSent(data.chat))
+        break
+      case ActionTypes.REGISTERED:
         dispatch(selfAwaken(data.user.id))
         dispatch(roomsUpdated(data.rooms))
         break
@@ -37,10 +47,10 @@ export function initSocket(dispatch) {
       case ActionTypes.ROOMS_UPDATED:
         dispatch(roomsUpdated(data.rooms))
         break
-      case 'ROOM_JOINED':
+      case ActionTypes.ROOM_JOINED:
         dispatch(roomJoined(data.room))
         break
-      case 'GAME_START':
+      case ActionTypes.GAME_START:
         dispatch(challengerAppears(data.opponentId))
         break
       case 'OPPONENT_DISCONNECTED':
