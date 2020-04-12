@@ -15,6 +15,6 @@ WaitingRoomContainer.propTypes = {
 
 export default compose(
   connect(state => ({
-    isInRoom: state.room.uuid !== undefined,
+    isInRoom: state.room.uuid !== null,
   }))
 )(WaitingRoomContainer)

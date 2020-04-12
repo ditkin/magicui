@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { compose } from 'redux'
 import * as RoomActions from '../redux/actions/RoomActions'
 import { sendMessage } from '../sockets'
 import RoomModel from '../models/Room'
 
-const WaitingRoom = ({ room }) => {
+const WaitingRoom = () => {
   const handleLeave = () => sendMessage(RoomActions.leaveRoom())
+
+  const room = useSelector(state => state.room)
 
   return (
     <Fragment>
@@ -20,8 +22,4 @@ WaitingRoom.propTypes = {
   room: PropTypes.instanceOf(RoomModel),
 }
 
-export default compose(
-  connect(state => ({
-    room: state.room,
-  }))
-)(WaitingRoom)
+export default WaitingRoom
