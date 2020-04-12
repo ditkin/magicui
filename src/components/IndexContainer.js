@@ -1,5 +1,5 @@
 import { hot } from 'react-hot-loader/root'
-import React, { Fragment } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import CreateReactClass from 'create-react-class'
 import { connect } from 'react-redux'
@@ -10,8 +10,16 @@ import WaitingRoomContainer from './WaitingRoomContainer'
 import GameContainer from './GameContainer'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import { API_BASE_URL } from '../constants'
 
 const IndexContainer = ({ updateGameState, game, userId, opponentId }) => {
+  fetch(API_BASE_URL)
+    .then(response => response.text())
+    .then(data => {
+      console.log(data)
+    })
+    .catch(e => console.log(e))
+
   if (!isNaN(userId) && isNaN(opponentId)) {
     return <WaitingRoomContainer />
   }
